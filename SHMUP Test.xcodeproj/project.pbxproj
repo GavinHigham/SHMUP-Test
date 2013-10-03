@@ -1,0 +1,170 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		8610783117E6971400938076 /* .DS_Store */ = {isa = PBXFileReference; lastKnownFileType = file; path = .DS_Store; sourceTree = "<group>"; };
+		8610783217E6971400938076 /* Aster4 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Aster4; sourceTree = "<group>"; };
+		8610783317E6971400938076 /* Bolt */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Bolt; sourceTree = "<group>"; };
+		8610783417E6971400938076 /* collision.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = collision.c; sourceTree = "<group>"; };
+		8610783517E6971400938076 /* definitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = definitions.h; sourceTree = "<group>"; };
+		8610783617E6971400938076 /* init.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = init.c; sourceTree = "<group>"; };
+		8610783717E6971400938076 /* linkedlisttest.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = linkedlisttest.c; sourceTree = "<group>"; };
+		8610783817E6971400938076 /* logic_tick.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = logic_tick.c; sourceTree = "<group>"; };
+		8610783917E6971400938076 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		8610783A17E6971400938076 /* MoonBrushTest.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = MoonBrushTest.jpg; sourceTree = "<group>"; };
+		8610783B17E6971400938076 /* proj.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = proj.c; sourceTree = "<group>"; };
+		8610783C17E6971400938076 /* random.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = random.c; sourceTree = "<group>"; };
+		8610783D17E6971400938076 /* Ship1 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Ship1; sourceTree = "<group>"; };
+		8610783E17E6971400938076 /* Ship2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Ship2; sourceTree = "<group>"; };
+		8610783F17E6971400938076 /* smoke */ = {isa = PBXFileReference; lastKnownFileType = folder; path = smoke; sourceTree = "<group>"; };
+		8610784017E6971400938076 /* struct_pool.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = struct_pool.c; sourceTree = "<group>"; };
+		8610784117E6971400938076 /* test4 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = test4; sourceTree = "<group>"; };
+		8610784217E6971400938076 /* test4.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = test4.c; sourceTree = "<group>"; };
+		8610784317E6971400938076 /* tex_load.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = tex_load.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		8610782B17E6971400938076 = {
+			isa = PBXGroup;
+			children = (
+				8610783117E6971400938076 /* .DS_Store */,
+				8610783217E6971400938076 /* Aster4 */,
+				8610783317E6971400938076 /* Bolt */,
+				8610783417E6971400938076 /* collision.c */,
+				8610783517E6971400938076 /* definitions.h */,
+				8610783617E6971400938076 /* init.c */,
+				8610783717E6971400938076 /* linkedlisttest.c */,
+				8610783817E6971400938076 /* logic_tick.c */,
+				8610783917E6971400938076 /* Makefile */,
+				8610783A17E6971400938076 /* MoonBrushTest.jpg */,
+				8610783B17E6971400938076 /* proj.c */,
+				8610783C17E6971400938076 /* random.c */,
+				8610783D17E6971400938076 /* Ship1 */,
+				8610783E17E6971400938076 /* Ship2 */,
+				8610783F17E6971400938076 /* smoke */,
+				8610784017E6971400938076 /* struct_pool.c */,
+				8610784117E6971400938076 /* test4 */,
+				8610784217E6971400938076 /* test4.c */,
+				8610784317E6971400938076 /* tex_load.c */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		8610783017E6971400938076 /* SHMUP Test */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 8610784417E6971400938076 /* Build configuration list for PBXLegacyTarget "SHMUP Test" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "/Users/Gavin/Game Dev/Tests/SHMUP Test";
+			dependencies = (
+			);
+			name = "SHMUP Test";
+			passBuildSettingsInEnvironment = 1;
+			productName = "SHMUP Test";
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		8610782C17E6971400938076 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 8610782F17E6971400938076 /* Build configuration list for PBXProject "SHMUP Test" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 8610782B17E6971400938076;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8610783017E6971400938076 /* SHMUP Test */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		8610782D17E6971400938076 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		8610782E17E6971400938076 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		8610784517E6971400938076 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "SHMUP Test";
+			};
+			name = Debug;
+		};
+		8610784617E6971400938076 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "SHMUP Test";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8610782F17E6971400938076 /* Build configuration list for PBXProject "SHMUP Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8610782D17E6971400938076 /* Debug */,
+				8610782E17E6971400938076 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8610784417E6971400938076 /* Build configuration list for PBXLegacyTarget "SHMUP Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8610784517E6971400938076 /* Debug */,
+				8610784617E6971400938076 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8610782C17E6971400938076 /* Project object */;
+}
