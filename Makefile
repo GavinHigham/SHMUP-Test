@@ -5,7 +5,7 @@ SOURCES:=$(shell echo *.c)
 OBJECTS:=$(patsubst %.c,%.o,${SOURCES})
 TARGETS:=$(patsubst %.c,%,${SOURCES})
 
-all: $(TARGETS)
+all: main
 
 clean:
 	rm -f -R $(OBJECTS) $(TARGETS) *.dSYM
