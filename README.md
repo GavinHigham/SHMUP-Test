@@ -1,4 +1,4 @@
-Type "make" to make the game! (Make sure you have Allegro 5 installed first.
+Type "make" to make the game! (Make sure you have Allegro 5 installed first.)
 
 Then type ./main to run the game.
 
