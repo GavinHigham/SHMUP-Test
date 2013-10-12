@@ -114,6 +114,7 @@ ALLEGRO_BITMAP *backdrop = NULL;
 ALLEGRO_BITMAP *bg_stars = NULL;
 ALLEGRO_BITMAP *planet_lg = NULL;
 ALLEGRO_BITMAP *planet_sm = NULL;
+ALLEGRO_BITMAP *badguy = NULL;
 
 PROJP ship;
 int ship_spread_index = 0;

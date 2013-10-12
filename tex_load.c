@@ -23,6 +23,8 @@ int load_textures()
 	planet_sm = al_load_bitmap("Backdrops/planet_sm.png");
 	if (!bg_stars || !planet_sm || !planet_lg) printf("Some part of the backdrop failed to load.\n");
 
+	badguy = al_load_bitmap("BadGuy/BadGuy.png");
+
 	//Loading in the bolt frames.
 	for (i = 0; i < 12; i++) {
 		char path[] = "Bolt/bolt0000.png\0";

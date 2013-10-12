@@ -26,8 +26,6 @@ NODEP init_node()
 void ship_aster_coll(PROJP ship, PROJP asteroid)
 {
 	PROJP blastEffect = (PROJP)new_pool_item(blast_pool);
-	//printf("The ship takes a hit!\n");
-	//printf("%llx & %llx\n", (llui)ship, (llui)asteroid);
 	asteroid->health--;
 	ship->health--;
 	blastEffect->health = 34;
@@ -35,6 +33,17 @@ void ship_aster_coll(PROJP ship, PROJP asteroid)
 	blastEffect->posY = asteroid->posY - 13.5;
 	blastEffect->velX = asteroid->velX * 0.6;
 	blastEffect->velY = asteroid->velY * 0.6;
+}
+void ship_bolt_coll(PROJP ship, PROJP bolt)
+{
+	PROJP blastEffect = (PROJP)new_pool_item(blast_pool);
+	bolt->health--;
+	ship->health -= 5;
+	blastEffect->health = 34;
+	blastEffect->posX = bolt->posX - 13.5;
+	blastEffect->posY = bolt->posY - 13.5;
+	blastEffect->velX = bolt->velX * 0.6;
+	blastEffect->velY = bolt->velY * 0.6;
 }
 void bolt_aster_coll(PROJP bolt, PROJP asteroid)
 {
@@ -59,8 +68,9 @@ void handleCollision(PROJP proj1, PROJP proj2)
 {
 	//printf("Handling collision.\n");
 	//These are temporary.
-	if (proj1->kind == SHIP && proj2->kind == ASTEROID) //There may be more thorough checks in the future.
-		ship_aster_coll(proj1, proj2);
+	if (proj1->kind == SHIP)
+		if (proj2->kind == ASTEROID) ship_aster_coll(proj1, proj2);
+		if (proj2->kind == ENEMYBOLT) ship_bolt_coll(proj1, proj2);
 	if (proj1->kind == BOLT) {
 		if (proj2->kind == ENEMY) bolt_enemy_coll(proj1, proj2);
 		if (proj2->kind == ASTEROID) bolt_aster_coll(proj1, proj2);
@@ -203,7 +213,7 @@ void find_collbox_collisions(COLLBOXP cbp)
 	NODEP temp1;
 	NODEP temp2;
 	//Handle asteroids hitting ship.
-	while (cbp->ship != NULL) {
+	if (cbp->ship != NULL) {
 		temp2 = cbp->asteroids;
 		while (temp2 != NULL) {
 			if (box_colliding(ship, temp2->data))
@@ -211,9 +221,8 @@ void find_collbox_collisions(COLLBOXP cbp)
 			temp2 = temp2->next;
 		}
 		kill_item(node_pool, cbp->ship->index);
-		cbp->ship = cbp->ship->next;
 	}
-	//Handle all enemy bolt collisions.
+	//Handle all enemy (friendly)bolt collisions.
 	temp1 = cbp->enemies;
 	while (temp1 != NULL) {
 		temp2 = cbp->bolts;
@@ -225,6 +234,16 @@ void find_collbox_collisions(COLLBOXP cbp)
 		kill_item(node_pool, temp1->index);
 		cbp->enemies = cbp->enemies->next;
 		temp1 = cbp->enemies;
+	}
+	//Handle all ship (enemy)bolt collisions.
+	//These are ones where an enemy bolt strikes the ship.
+	if (cbp->ship != NULL) {
+		temp2 = cbp->enemy_bolts;
+		while (temp2 != NULL) {
+			if (box_colliding(ship, temp2->data))
+				handleCollision(ship, temp2->data);
+			temp2 = temp2->next;
+		}
 	}
 	//Handle all asteroid bolt collisions.
 	temp1 = cbp->asteroids;
