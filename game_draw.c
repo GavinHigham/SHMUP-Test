@@ -19,15 +19,17 @@ void game_draw()
 	float planet_distance = sqrt(pow(cameraX - orbit_r * cos(planet_sm_theta_rad), 2) + pow(cameraY - orbit_r * sin(planet_sm_theta_rad), 2));
 	float w_screen = atan2(200, planet_distance) / deg_to_rad(viewing_angle) * 580;
 	float x_screen = cos(planet_sm_theta_rad) * (SCREEN_W / 2) - (w_screen / 2) + (SCREEN_W / 2);
-	float backdropx_less = backdropx / 0.9;
-	float backdropy_less = backdropy / 0.9;
+	float backdropx_less = backdropx / 0.90;
+	float backdropy_less = backdropy / 0.90;
 	
 	redraw = false;
 	//al_clear_to_color(al_map_rgb(255,255,255));
 	//al_draw_bitmap(backdrop, backdropx, backdropy, 0);
 
 	//Draw the stars behind the planets.
-	al_draw_bitmap(bg_stars, backdropx, backdropy, 0);
+	al_draw_bitmap(bg_starsA, backdropx + backAx, backdropy, 0);
+	al_draw_bitmap(bg_starsB, backdropx + backAx + 960, backdropy, 0);
+	al_draw_bitmap(bg_starsB, backdropx + backAx - 960, backdropy, 0);
 	//If the small planet is behind the big planet, draw it first.
 	if (planet_sm_theta >= 180 || planet_sm_theta < 0)
 		al_draw_scaled_bitmap(planet_sm, 0, 0, 580, 580, x_screen + backdropx_less, 700 + backdropy_less - (w_screen / 2), w_screen, w_screen, 0);
@@ -51,6 +53,11 @@ void game_draw()
 
 	//Draw the ship.
 	al_draw_bitmap(shipFrames[(int)shipFrame+shipFramesetSwap], ship->posX, ship->posY, 0);
+
+	//Draw enemies.
+	for (i = 0; i < enemy_pool->liveIndex; i++) {
+	al_draw_bitmap(badguy, ((PROJP)enemy_pool->pool[i])->posX, ((PROJP)enemy_pool->pool[i])->posY, 0);
+	}
 
 	//Draw the blasts.
 	for (i = 0; i < blast_pool->liveIndex; i++) {

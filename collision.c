@@ -60,8 +60,14 @@ void bolt_aster_coll(PROJP bolt, PROJP asteroid)
 }
 void bolt_enemy_coll(PROJP bolt, PROJP enemy)
 {
-	//printf("An enemy is hit by a bolt!\n");
-	//printf("%llx & %llx\n", (llui)bolt, (llui)enemy);
+	PROJP blastEffect = (PROJP)new_pool_item(blast_pool);
+	bolt->health--;
+	enemy->health--;
+	blastEffect->health = 34;
+	blastEffect->posX = bolt->posX + 15;
+	blastEffect->posY = bolt->posY - 14;
+	blastEffect->velX = enemy->velX * 0.6;
+	blastEffect->velY = enemy->velY * 0.6;	
 }
 
 void handleCollision(PROJP proj1, PROJP proj2)

@@ -109,7 +109,10 @@ int init_stuff()
 		PROJP tmp = (PROJP)enemy_pool->pool[i];
 		tmp->kind = ENEMY;
 		tmp->health = 5;
-		tmp->animFrame = 0;
+		tmp->offsetX = 16;
+		tmp->offsetY = 23;
+		tmp->sizeX = 61;
+		tmp->sizeY = 54;
 	}
 
 	//Setup the enemy bolt pool.
@@ -118,7 +121,6 @@ int init_stuff()
 		PROJP tmp = (PROJP)enemy_bolt_pool->pool[i];
 		tmp->kind = ENEMYBOLT;
 		tmp->health = 1;
-		tmp->animFrame = 0;
 	}
 
 	//The +1 is for the ship projectile, the *4 is for the 4 corners of each projectile.

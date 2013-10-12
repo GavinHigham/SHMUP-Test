@@ -18,11 +18,12 @@ int load_textures()
 	backdrop = al_load_bitmap("MoonBrushTest.jpg");
 	if (!backdrop) printf("Backdrop failed to load.\n");
 	*/
-	bg_stars = al_load_bitmap("Backdrops/bg_stars.jpg");
+	bg_starsA = al_load_bitmap("Backdrops/bg_starsA.jpg");
+	bg_starsB = al_load_bitmap("Backdrops/bg_starsB.jpg");
 	planet_lg = al_load_bitmap("Backdrops/planet_lg2.png");
 	planet_sm = al_load_bitmap("Backdrops/planet_sm.png");
 
-	if (!bg_stars || !planet_sm || !planet_lg) printf("Some part of the backdrop failed to load.\n");
+	if (!bg_starsA || !bg_starsB || !planet_sm || !planet_lg) printf("Some part of the backdrop failed to load.\n");
 
 	health_tray = al_load_bitmap("HealthBar/HealthBarTray.png");
 	health_bar = al_load_bitmap("HealthBar/HealthBar.png");

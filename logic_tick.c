@@ -14,6 +14,9 @@
 
 void logic_tick()
 {
+	backAx += timescale * 9;
+	if (backAx >= 960) backAx -= 1920;
+
 	if (regen > 0) regen --;
 
 	timescale = (100 - attention) / 100.0;
@@ -26,6 +29,8 @@ void logic_tick()
 	if (ship->health < 0) ship->health = 100;
 	if (ship_cooldown > 0) ship_cooldown -= timescale;
 	if (ast_cooldown > 0) ast_cooldown -= timescale;
+	if (enemy_cooldown > 0) enemy_cooldown -= timescale;
+	if (enemy_bolt_cooldown > 0) enemy_bolt_cooldown -= timescale;
 
 	shipFramesetSwap^=60; //DON'T WORRY ABOUT IT :)
 	planet_sm_theta += 0.5 * timescale;
@@ -75,7 +80,7 @@ void logic_tick()
 	update_pool(sl_pool, &proj_update);
 
 	//Creation and swapping of laser projectiles.
-	if (key[KEY_SPACE] && !ship_cooldown && sl_pool->liveIndex < sl_pool->poolsize) {
+	if (key[KEY_SPACE] && ship_cooldown <= 0 && sl_pool->liveIndex < sl_pool->poolsize) {
 		PROJP tmp_new = (PROJP)new_pool_item(sl_pool);
 		tmp_new->health = 1;
 		tmp_new->posX = ship->posX + SHOT_OFFSET_X;
@@ -87,7 +92,7 @@ void logic_tick()
 		//Alternate method of having "spread"
 		//ship_spread_index--;
 		//if (ship_spread_index <= 0) ship_spread_index = SHOT_SPREAD;
-		if (ship_cooldown == 0) ship_cooldown = SHOT_COOLDOWN_MAX;
+		if (ship_cooldown <= 0) ship_cooldown = SHOT_COOLDOWN_MAX;
 	}
 	
 	//Update the asteroid positions.
@@ -95,15 +100,29 @@ void logic_tick()
 	
 	for (i = 0; i < 10; i++) {
 		//Creation and swapping of asteroids.
-		if (!ast_cooldown && ast_pool->liveIndex < ast_pool->poolsize) {
+		if (ast_cooldown <= 0 && ast_pool->liveIndex < ast_pool->poolsize) {
 			PROJP tmp_new = (PROJP)new_pool_item(ast_pool);
 			tmp_new->health = 1;
 			tmp_new->posX = SCREEN_W + MARGIN;
 			tmp_new->posY = (rand() % SCREEN_H);
 			tmp_new->velX = (rand() % 3) - 4;
 			tmp_new->velY = (rand() % 5) - 2;
-			if (ast_cooldown == 0) ast_cooldown = AST_COOLDOWN_MAX;
+			if (ast_cooldown <= 0) ast_cooldown = AST_COOLDOWN_MAX;
 			//printf("%i\n", ast_pool->liveIndex);
+		}
+	}
+
+	update_pool(enemy_pool, &proj_update);
+
+	for (i = 0; i < 10; i++) {
+		//Creation and swapping of enemies.
+		if (enemy_cooldown <= 0 && enemy_pool->liveIndex < enemy_pool->poolsize) {
+			PROJP tmp_new = (PROJP)new_pool_item(enemy_pool);
+			tmp_new->health = 5;
+			tmp_new->posX = SCREEN_W + MARGIN;
+			tmp_new->posY = (rand() % SCREEN_H);
+			tmp_new->velX = - 2.5;
+			if (enemy_cooldown <= 0) enemy_cooldown = ENEMY_COOLDOWN_MAX;
 		}
 	}
 
@@ -120,6 +139,7 @@ void logic_tick()
 	//printf("It broke after ship check-in\n");
 	check_in_smartpool(sl_pool);
 	check_in_smartpool(ast_pool);
+	check_in_smartpool(enemy_pool);
 	//printf("Smartpool check-in was successful.\n");
 	do_collision();
 	//printf("Collision was successful.\n");

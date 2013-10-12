@@ -172,7 +172,8 @@ int main()
 	for (i = 0; i < 120; i++) al_destroy_bitmap(shipFrames[i]);
 	for (i = 0; i < 35; i++) al_destroy_bitmap(blastFrames[i]);
 	al_destroy_bitmap(backdrop);
-	al_destroy_bitmap(bg_stars);
+	al_destroy_bitmap(bg_starsA);
+	al_destroy_bitmap(bg_starsB);
 	al_destroy_bitmap(planet_lg);
 	al_destroy_bitmap(planet_sm);
 	al_destroy_bitmap(health_tray);
