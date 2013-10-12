@@ -94,6 +94,7 @@ int init_stuff()
 		tmp->sizeY = 12;
 	}
 
+	//Setup the pool of "particle" effects.
 	blast_pool = init_smartItemPool(PROJ_POOL_SIZE, (void *(*)())&init_proj);
 	for (i = 0; i < blast_pool->poolsize; i++) {
 		PROJP tmp = (PROJP)blast_pool->pool[i];
@@ -102,9 +103,26 @@ int init_stuff()
 		tmp->animFrame = 0;
 	}
 
+	//Setup the enemy pool.
+	enemy_pool = init_smartItemPool(ENEMY_POOL_SIZE, (void *(*)())&init_proj);
+	for (i = 0; i < enemy_pool->poolsize; i++) {
+		PROJP tmp = (PROJP)enemy_pool->pool[i];
+		tmp->kind = ENEMY;
+		tmp->health = 5;
+		tmp->animFrame = 0;
+	}
+
+	//Setup the enemy bolt pool.
+	enemy_bolt_pool = init_smartItemPool(ENEMY_BOLT_POOL_SIZE, (void *(*)())&init_proj);
+	for (i = 0; i < enemy_bolt_pool->poolsize; i++) {
+		PROJP tmp = (PROJP)enemy_bolt_pool->pool[i];
+		tmp->kind = ENEMYBOLT;
+		tmp->health = 1;
+		tmp->animFrame = 0;
+	}
 
 	//The +1 is for the ship projectile, the *4 is for the 4 corners of each projectile.
-	node_pool = init_smartItemPool((AST_POOL_SIZE + PROJ_POOL_SIZE + 1) * 4, (void *(*)())&init_node);
+	node_pool = init_smartItemPool((AST_POOL_SIZE + PROJ_POOL_SIZE + ENEMY_POOL_SIZE + ENEMY_BOLT_POOL_SIZE + 1) * 4, (void *(*)())&init_node);
 
 	//Return 0 if everything went okay.
 	return 0;

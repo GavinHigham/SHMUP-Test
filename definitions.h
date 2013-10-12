@@ -7,6 +7,8 @@ const int MARGIN = 300;
 const int FPS = 60;
 const int PROJ_POOL_SIZE = 1000;
 const int AST_POOL_SIZE = 200;
+const int ENEMY_POOL_SIZE = 200;
+const int ENEMY_BOLT_POOL_SIZE = 200;
 const int BACKDROP_H = 1200;
 const int BACKDROP_W = 1920;
 const int SHOT_COOLDOWN_MAX = 10;
@@ -54,7 +56,7 @@ typedef struct projectile {
 } PROJ, *PROJP;
 
 //"Kind" will be an integer, but I enumerate its possible values here.
-enum {SHIP, BOLT, ASTEROID, ENEMY, BLAST};
+enum {SHIP, BOLT, ASTEROID, ENEMY, BLAST, ENEMYBOLT};
 
 typedef struct smartpool {
 	void **pool;
@@ -79,6 +81,7 @@ typedef struct collbox {
 	NODEP bolts;
 	NODEP asteroids;
 	NODEP enemies;
+	NODEP enemy_bolts;
 } COLLBOX, *COLLBOXP;
 
 VECTOR struct_zero_vector = {0, 0};
@@ -120,6 +123,8 @@ int ast_cooldown = AST_COOLDOWN_MAX;
 SPP sl_pool;
 SPP ast_pool;
 SPP blast_pool;
+SPP enemy_pool;
+SPP enemy_bolt_pool;
 SPP node_pool;
 
 enum {KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_SPACE};

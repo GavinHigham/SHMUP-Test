@@ -129,7 +129,6 @@ void point_checkin(PROJP pp, int pointX, int pointY)
 				}
 				break;
 			case ASTEROID:
-				//printf("Checking in an asteroid.\n");
 				if ((!cbp->asteroids || pp != cbp->asteroids->data) && node_pool->liveIndex < node_pool->poolsize) {
 					NODEP new = new_pool_item(node_pool);
 					new->index = node_pool->liveIndex - 1;
@@ -137,7 +136,6 @@ void point_checkin(PROJP pp, int pointX, int pointY)
 					new->next = cbp->asteroids;
 					cbp->asteroids = new;
 				}
-				//printf("Checked in an asteroid.\n");
 				break;
 			case ENEMY:
 				if ((!cbp->enemies || pp != cbp->enemies->data) && node_pool->liveIndex < node_pool->poolsize) {
@@ -150,6 +148,15 @@ void point_checkin(PROJP pp, int pointX, int pointY)
 				break;
 			case BLAST:
 				//No collisions with explosion entities for now.
+				break;
+			case ENEMYBOLT:
+				if ((!cbp->enemy_bolts || pp != cbp->enemy_bolts->data) && node_pool->liveIndex < node_pool->poolsize) {
+					NODEP new = new_pool_item(node_pool);
+					new->index = node_pool->liveIndex - 1;
+					new->data = pp;
+					new->next = cbp->enemy_bolts;
+					cbp->enemy_bolts = new;
+				}
 				break;
 		}
 	}
@@ -197,21 +204,15 @@ void find_collbox_collisions(COLLBOXP cbp)
 	NODEP temp2;
 	//Handle asteroids hitting ship.
 	while (cbp->ship != NULL) {
-		//printf("Entering ship collision test.\n");
 		temp2 = cbp->asteroids;
 		while (temp2 != NULL) {
-			//printf("Checking a ship/asteroid collision possibility.\n");
 			if (box_colliding(ship, temp2->data))
 				handleCollision(ship, temp2->data);
 			temp2 = temp2->next;
-			//printf("temp2 = %llx, temp2->next = %llx", (llui)temp2, (llui)temp2->next);
 		}
-		//printf("Exiting ship collision test. Cleaning up.\n");
 		kill_item(node_pool, cbp->ship->index);
 		cbp->ship = cbp->ship->next;
-		//assert(cbp->ship->next != cbp->ship);
 	}
-	//printf("Handled all ship collisions.\n");
 	//Handle all enemy bolt collisions.
 	temp1 = cbp->enemies;
 	while (temp1 != NULL) {
@@ -223,24 +224,19 @@ void find_collbox_collisions(COLLBOXP cbp)
 		}
 		kill_item(node_pool, temp1->index);
 		cbp->enemies = cbp->enemies->next;
-		//temp1->next = NULL;
 		temp1 = cbp->enemies;
 	}
-	//printf("Handled all enemy/bolt collisions.\n");
 	//Handle all asteroid bolt collisions.
 	temp1 = cbp->asteroids;
 	while (temp1 != NULL) {
 		temp2 = cbp->bolts;
 		while (temp2 != NULL) {
-			//printf("Box collision for asteroids.\n");
-			//printf("temp2 = %llx\n", (llui)temp2);
 			if (box_colliding(temp2->data, temp1->data))
 				handleCollision(temp2->data, temp1->data);
 			temp2 = temp2->next;
 		}
 		kill_item(node_pool, temp1->index);
 		cbp->asteroids = cbp->asteroids->next;
-		//temp1->next = NULL;
 		temp1 = cbp->asteroids;
 	}
 	//printf("Handled all asteroid/bolt collisions.\n");
