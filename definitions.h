@@ -12,7 +12,7 @@ const int ENEMY_BOLT_POOL_SIZE = 200;
 const int BACKDROP_H = 1200;
 const int BACKDROP_W = 1920;
 const int SHOT_COOLDOWN_MAX = 10;
-const int AST_COOLDOWN_MAX = 8;
+int AST_COOLDOWN_MAX = 8;
 int SHOT_SPREAD = 1;
 int SHOT_OFFSET_X = 69;
 int SHOT_OFFSET_Y = 20;
@@ -21,6 +21,7 @@ float viewing_angle = 80;
 float orbit_r = 400;
 float cameraX = 0;
 float cameraY = 800;
+float timescale = 1;
 
 typedef long long unsigned int llui;
 

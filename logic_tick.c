@@ -18,7 +18,7 @@ void logic_tick()
 	if (ast_cooldown > 0) ast_cooldown--;
 
 	shipFramesetSwap^=60; //DON'T WORRY ABOUT IT :)
-	planet_sm_theta += 0.5;
+	planet_sm_theta += 0.5 * timescale;
 	if (planet_sm_theta > 360) planet_sm_theta -= 360;
 
 	/*

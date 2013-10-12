@@ -31,8 +31,8 @@ PROJP init_proj()
 //Self explanatory really.
 void update_proj_position(PROJP pp)
 {
-	pp->posX += pp->velX;
-	pp->posY += pp->velY;
+	pp->posX += pp->velX * timescale;
+	pp->posY += pp->velY * timescale;
 }
 
 //Returns 1 if a PROJ has no health.
