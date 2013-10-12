@@ -1,6 +1,8 @@
-#pragma once
-
-//C stuff.
+#include "init.h"
+#include "struct_pool.h"
+#include "proj.h"
+#include "collision.h"
+///C stuff.
 #include <stdio.h>
 #include <stdlib.h>
 #ifdef _WIN32
@@ -11,15 +13,7 @@
 //Allegro stuff.
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
-//My stuff.
-#ifndef GUARDCHECK
-	#include "definitions.h"
-#endif
-#include "struct_pool.c"
-#include "proj.c"
-#include "collision.c"
 
-//Initializing random number generator.
 void init_random()
 {
 	struct timeval tv;
@@ -28,8 +22,7 @@ void init_random()
 	//You can re-seed rapidly without getting the same results.
 	srand(time(NULL));
 }
-	
-//Initializing a bunch of allegro modules.
+
 int init_stuff()
 {
 	init_random();

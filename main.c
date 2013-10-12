@@ -1,3 +1,13 @@
+#include "definitions.h"
+#include "collision.h"
+#include "struct_pool.h"
+#include "proj.h"
+#include "init.h"
+#include "tex_load.h"
+#include "logic_tick.h"
+#include "key_handling.h"
+#include "game_draw.h"
+
 //C stuff.
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,18 +19,6 @@
 //Allegro stuff.
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
-//My stuff.
-#ifndef GUARDCHECK
-	#include "definitions.h"
-#endif
-#include "collision.c"
-#include "struct_pool.c"
-#include "proj.c"
-#include "init.c"
-#include "tex_load.c"
-#include "logic_tick.c"
-#include "key_handling.c"
-#include "game_draw.c"
 
 int main()
 {

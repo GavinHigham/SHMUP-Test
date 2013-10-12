@@ -1,16 +1,15 @@
-#pragma once
-
+#include "logic_tick.h"
+#include "definitions.h"
+#include "collision.h"
 //C stuff.
 #include <stdio.h>
 #include <stdlib.h>
 //Allegro stuff.
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
-//My stuff.
-#ifndef GUARDCHECK
-	#include "definitions.h"
-#endif
-#include "proj.c"
+
+#include "proj.h"
+#include "struct_pool.h"
 
 void logic_tick()
 {
@@ -64,13 +63,13 @@ void logic_tick()
 
 	//Creation and swapping of laser projectiles.
 	if (key[KEY_SPACE] && !ship_cooldown && sl_pool->liveIndex < sl_pool->poolsize) {
-		PROJP new = (PROJP)new_pool_item(sl_pool);
-		new->health = 1;
-		new->posX = ship->posX + SHOT_OFFSET_X;
-		new->posY = ship->posY + SHOT_OFFSET_Y;
-		new->velX = 15;
-		new->velY = (rand() % SHOT_SPREAD) - (SHOT_SPREAD/2);
-		//new->velY = ship_spread_index - (SHOT_SPREAD/2);
+		PROJP tmp_new = (PROJP)new_pool_item(sl_pool);
+		tmp_new->health = 1;
+		tmp_new->posX = ship->posX + SHOT_OFFSET_X;
+		tmp_new->posY = ship->posY + SHOT_OFFSET_Y;
+		tmp_new->velX = 15;
+		tmp_new->velY = (rand() % SHOT_SPREAD) - (SHOT_SPREAD/2);
+		//tmp_new->velY = ship_spread_index - (SHOT_SPREAD/2);
 		ship_spread_index--;
 		if (ship_spread_index <= 0) ship_spread_index = SHOT_SPREAD;
 		if (ship_cooldown == 0) ship_cooldown = SHOT_COOLDOWN;
@@ -82,12 +81,12 @@ void logic_tick()
 	for (i = 0; i < 10; i++) {
 		//Creation and swapping of asteroids.
 		if (!ast_cooldown && ast_pool->liveIndex < ast_pool->poolsize) {
-			PROJP new = (PROJP)new_pool_item(ast_pool);
-			new->health = 1;
-			new->posX = SCREEN_W + MARGIN;
-			new->posY = (rand() % SCREEN_H);
-			new->velX = (rand() % 3) - 4;
-			new->velY = (rand() % 5) - 2;
+			PROJP tmp_new = (PROJP)new_pool_item(ast_pool);
+			tmp_new->health = 1;
+			tmp_new->posX = SCREEN_W + MARGIN;
+			tmp_new->posY = (rand() % SCREEN_H);
+			tmp_new->velX = (rand() % 3) - 4;
+			tmp_new->velY = (rand() % 5) - 2;
 			if (ast_cooldown == 0) ast_cooldown = AST_COOLDOWN;
 			//printf("%i\n", ast_pool->liveIndex);
 		}

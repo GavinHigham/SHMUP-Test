@@ -1,17 +1,13 @@
-#pragma once
-
+#include "game_draw.h"
+#include "definitions.h"
 //C stuff.
 #include <stdio.h>
 #include <stdlib.h>
 //Allegro stuff.
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
-//My stuff.
-#ifndef GUARDCHECK
-	#include "definitions.h"
-#endif
 
-//Draw all the things.
+
 void game_draw()
 {
 	redraw = false;

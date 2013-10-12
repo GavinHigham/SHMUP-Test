@@ -1,15 +1,11 @@
-#pragma once
-
+#include "key_handling.h"
+#include "definitions.h"
 //C stuff.
 #include <stdio.h>
 #include <stdlib.h>
 //Allegro stuff.
-#include <allegro5/allegro.h>
+//#include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
-//My stuff.
-#ifndef GUARDCHECK
-	#include "definitions.h"
-#endif
 
 void key_down(ALLEGRO_EVENT ev)
 {
