@@ -9,10 +9,15 @@
 
 int load_textures()
 {
-
+	/*
 	//Load in the backdrop.
 	backdrop = al_load_bitmap("MoonBrushTest.jpg");
 	if (!backdrop) printf("Backdrop failed to load.\n");
+	*/
+	bg_stars = al_load_bitmap("Backdrops/bg_stars.jpg");
+	planet_lg = al_load_bitmap("Backdrops/planet_lg2.png");
+	planet_sm = al_load_bitmap("Backdrops/planet_sm.png");
+	if (!bg_stars || !planet_sm || !planet_lg) printf("Some part of the backdrop failed to load.\n");
 
 	//Loading in the bolt frames.
 	for (i = 0; i < 12; i++) {

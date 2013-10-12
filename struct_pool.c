@@ -54,8 +54,7 @@ void update_pool(SPP sp, void (*struct_update)(SPP, int)) {
 SPP init_smartItemPool(int count, void *(init_struct)())
 {
 	SPP sp = (SPP)malloc(sizeof(SMARTPOOL));
-	int pool_size = sizeof(void *)*count;
-	sp->pool = (void **)malloc(pool_size);
+	sp->pool = (void **)malloc(sizeof(void *) * count);
 	init_struct_pool((void **)sp->pool, count, init_struct);
 	sp->liveIndex = 0;
 	sp->poolsize = count;

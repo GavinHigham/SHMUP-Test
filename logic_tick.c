@@ -16,7 +16,9 @@ void logic_tick()
 	if (ship_cooldown > 0) ship_cooldown--;
 	if (ast_cooldown > 0) ast_cooldown--;
 
-	shipFramesetSwap^=60;
+	shipFramesetSwap^=60; //DON'T WORRY ABOUT IT :)
+	planet_sm_theta += 0.5;
+	if (planet_sm_theta > 360) planet_sm_theta -= 360;
 
 	/*
 	if (logicTick >= 60) {
@@ -68,11 +70,13 @@ void logic_tick()
 		tmp_new->posX = ship->posX + SHOT_OFFSET_X;
 		tmp_new->posY = ship->posY + SHOT_OFFSET_Y;
 		tmp_new->velX = 15;
-		tmp_new->velY = (rand() % SHOT_SPREAD) - (SHOT_SPREAD/2);
+		tmp_new->velY = 0;
+		//tmp_new->velY = (rand() % SHOT_SPREAD) - (SHOT_SPREAD/2);
 		//tmp_new->velY = ship_spread_index - (SHOT_SPREAD/2);
-		ship_spread_index--;
-		if (ship_spread_index <= 0) ship_spread_index = SHOT_SPREAD;
-		if (ship_cooldown == 0) ship_cooldown = SHOT_COOLDOWN;
+		//Alternate method of having "spread"
+		//ship_spread_index--;
+		//if (ship_spread_index <= 0) ship_spread_index = SHOT_SPREAD;
+		if (ship_cooldown == 0) ship_cooldown = SHOT_COOLDOWN_MAX;
 	}
 	
 	//Update the asteroid positions.
@@ -87,7 +91,7 @@ void logic_tick()
 			tmp_new->posY = (rand() % SCREEN_H);
 			tmp_new->velX = (rand() % 3) - 4;
 			tmp_new->velY = (rand() % 5) - 2;
-			if (ast_cooldown == 0) ast_cooldown = AST_COOLDOWN;
+			if (ast_cooldown == 0) ast_cooldown = AST_COOLDOWN_MAX;
 			//printf("%i\n", ast_pool->liveIndex);
 		}
 	}

@@ -81,6 +81,7 @@
     <ClCompile Include="proj.c" />
     <ClCompile Include="struct_pool.c" />
     <ClCompile Include="tex_load.c" />
+    <ClCompile Include="trig.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="collision.h" />
@@ -93,6 +94,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="struct_pool.h" />
     <ClInclude Include="tex_load.h" />
+    <ClInclude Include="trig.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,21 +3,27 @@
 
 #include <allegro5/allegro.h>
 
-#define SCREEN_W 800
-#define SCREEN_H 600
-#define MARGIN 300
-#define FPS 60
-#define PROJ_POOL_SIZE 1000
-#define AST_POOL_SIZE 200
-#define SHOT_COOLDOWN 2
-#define AST_COOLDOWN 8
-#define SHOT_SPREAD 1
-#define SHOT_OFFSET_X 69
-#define SHOT_OFFSET_Y 20
-#define BACKDROP_H 800
-#define BACKDROP_W 1280
-#define STARNUMBER 200
-#define COLLISIONDIVISION 9
+//#define ROOT
+extern const int SCREEN_W;
+extern const int SCREEN_H;
+extern const int MARGIN;
+extern const int FPS;
+extern const int PROJ_POOL_SIZE;
+extern const int AST_POOL_SIZE;
+extern const int ENEMY_POOL_SIZE;
+extern const int ENEMY_BOLT_POOL_SIZE;
+extern const int BACKDROP_H;
+extern const int BACKDROP_W;
+extern const int SHOT_COOLDOWN_MAX;
+extern const int AST_COOLDOWN_MAX;
+extern int SHOT_SPREAD;
+extern int SHOT_OFFSET_X;
+extern int SHOT_OFFSET_Y;
+extern float planet_sm_theta;
+extern float viewing_angle;
+extern float orbit_r;
+extern float cameraX;
+extern float cameraY;
 
 typedef long long unsigned int llui;
 
@@ -53,7 +59,7 @@ typedef struct projectile {
 } PROJ, *PROJP;
 
 //"Kind" will be an integer, but I enumerate its possible values here.
-extern enum {SHIP, BOLT, ASTEROID, ENEMY, BLAST};
+extern enum {SHIP, BOLT, ASTEROID, ENEMY, BLAST, ENEMYBOLT};
 
 typedef struct smartpool {
 	void **pool;
@@ -78,16 +84,17 @@ typedef struct collbox {
 	NODEP bolts;
 	NODEP asteroids;
 	NODEP enemies;
+	NODEP enemy_bolts;
 } COLLBOX, *COLLBOXP;
 
 extern VECTOR struct_zero_vector;
 extern VP zero_vec;
 extern int numcolgroups;
 
-extern int i; // wtf Gavin?
-extern short fps;
-extern short logicTick;
+extern int i;
+//Standard velocity.
 extern float stdv;
+//Value to scale x and y vel by if both keys are pressed.
 extern float diagscale;
 extern int backdropx;
 extern int backdropy;
@@ -105,8 +112,11 @@ extern int shipFramesetSwap;
 extern ALLEGRO_BITMAP *boltFrames[12];
 extern ALLEGRO_BITMAP *asteroidFrames[60];
 extern ALLEGRO_BITMAP *blastFrames[36];
-extern ALLEGRO_BITMAP *backdrop;
 extern ALLEGRO_BITMAP *shipFrames[120];
+extern ALLEGRO_BITMAP *backdrop;
+extern ALLEGRO_BITMAP *bg_stars;
+extern ALLEGRO_BITMAP *planet_lg;
+extern ALLEGRO_BITMAP *planet_sm;
 
 extern PROJP ship;
 extern int ship_spread_index;
@@ -116,11 +126,13 @@ extern int ast_cooldown;
 extern SPP sl_pool;
 extern SPP ast_pool;
 extern SPP blast_pool;
+extern SPP enemy_pool;
+extern SPP enemy_bolt_pool;
 extern SPP node_pool;
 
 extern enum {KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_SPACE};
 extern bool key[5];
 
-extern COLLBOX collision_array[SCREEN_W / 100][SCREEN_H / 100];
+extern COLLBOX **collision_array;
 
 #endif

@@ -16,7 +16,7 @@
 
 void init_random()
 {
-	struct timeval tv;
+	//struct timeval tv;
 	//gettimeofday(&tv, NULL);
 	//Seeding with microseconds.
 	//You can re-seed rapidly without getting the same results.
@@ -25,6 +25,8 @@ void init_random()
 
 int init_stuff()
 {
+	int collision_array_width;
+	int collision_array_height;
 	init_random();
 
 	if(!al_init())
@@ -87,6 +89,7 @@ int init_stuff()
 		tmp->sizeY = 12;
 	}
 
+	//Setup the pool of "particle" effects.
 	blast_pool = init_smartItemPool(PROJ_POOL_SIZE, (void *(*)())&init_proj);
 	for (i = 0; i < blast_pool->poolsize; i++) {
 		PROJP tmp = (PROJP)blast_pool->pool[i];
@@ -95,9 +98,40 @@ int init_stuff()
 		tmp->animFrame = 0;
 	}
 
+	//Setup the enemy pool.
+	enemy_pool = init_smartItemPool(ENEMY_POOL_SIZE, (void *(*)())&init_proj);
+	for (i = 0; i < enemy_pool->poolsize; i++) {
+		PROJP tmp = (PROJP)enemy_pool->pool[i];
+		tmp->kind = ENEMY;
+		tmp->health = 5;
+		tmp->animFrame = 0;
+	}
+
+	//Setup the enemy bolt pool.
+	enemy_bolt_pool = init_smartItemPool(ENEMY_BOLT_POOL_SIZE, (void *(*)())&init_proj);
+	for (i = 0; i < enemy_bolt_pool->poolsize; i++) {
+		PROJP tmp = (PROJP)enemy_bolt_pool->pool[i];
+		tmp->kind = ENEMYBOLT;
+		tmp->health = 1;
+		tmp->animFrame = 0;
+	}
 
 	//The +1 is for the ship projectile, the *4 is for the 4 corners of each projectile.
-	node_pool = init_smartItemPool((AST_POOL_SIZE + PROJ_POOL_SIZE + 1) * 4, (void *(*)())&init_node);
+	node_pool = init_smartItemPool((AST_POOL_SIZE + PROJ_POOL_SIZE + ENEMY_POOL_SIZE + ENEMY_BOLT_POOL_SIZE + 1) * 4, (void *(*)())&init_node);
+
+	// Set initial backdrop y position because this can't be done in the definitions C file beause reasons
+	backdropy = (SCREEN_H - BACKDROP_H) / 2;
+
+	// More "non-const" initialization??
+	ship_cooldown = SHOT_COOLDOWN_MAX;
+	ast_cooldown = AST_COOLDOWN_MAX;
+
+	// Set up collision array
+	collision_array_width = (SCREEN_W / 100);
+	collision_array_height = (SCREEN_H / 100);
+	collision_array = (COLLBOX **)malloc(collision_array_width*sizeof(COLLBOX *));
+	for(i = 0; i < collision_array_width; i++)
+		collision_array[i] = (COLLBOX *)malloc(collision_array_height*sizeof(COLLBOX));
 
 	//Return 0 if everything went okay.
 	return 0;

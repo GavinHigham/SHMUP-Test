@@ -19,6 +19,20 @@
 //Allegro stuff.
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
+//My stuff.
+#ifndef GUARDCHECK
+	#include "definitions.h"
+#endif
+#include "collision.h"
+#include "struct_pool.h"
+#include "proj.h"
+#include "init.h"
+#include "tex_load.h"
+#include "logic_tick.h"
+#include "key_handling.h"
+#include "math.h"
+#include "trig.h"
+#include "game_draw.h"
 
 int main()
 {
@@ -56,7 +70,8 @@ int main()
 		else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) break;
 		else if(ev.type == ALLEGRO_EVENT_KEY_DOWN) key_down(ev);
 		else if(ev.type == ALLEGRO_EVENT_KEY_UP) key_up(ev);
-		if(redraw && al_is_event_queue_empty(event_queue)) game_draw();
+		if(redraw && al_is_event_queue_empty(event_queue))
+			game_draw();
 	}
 
 	//Free all the things!
@@ -73,6 +88,8 @@ int main()
 	free_smartItemPool(ast_pool);
 	free_smartItemPool(blast_pool);
 	free_smartItemPool(node_pool);
+	free_smartItemPool(enemy_pool);
+	free_smartItemPool(enemy_bolt_pool);
 
 	return 0;
 }
