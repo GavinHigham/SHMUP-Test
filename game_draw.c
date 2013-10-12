@@ -57,5 +57,11 @@ void game_draw()
 		al_draw_bitmap(blastFrames[34 - ((PROJP)blast_pool->pool[i])->health], ((PROJP)blast_pool->pool[i])->posX, ((PROJP)blast_pool->pool[i])->posY, 0);
 	}
 
+	//Draw the health bar and health bar tray.
+	al_draw_bitmap(health_tray, 0, 0, 0);
+	int health_tray_width = (4 + 2*(ship->health));
+	if (health_tray_width < 4) health_tray_width = 4;
+	al_draw_bitmap_region(health_bar, 0, 0, health_tray_width, 19, 0, 0, 0);
+
 	al_flip_display();
 }

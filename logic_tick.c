@@ -14,8 +14,18 @@
 
 void logic_tick()
 {
-	if (ship_cooldown > 0) ship_cooldown--;
-	if (ast_cooldown > 0) ast_cooldown--;
+	if (regen > 0) regen --;
+
+	timescale = (100 - attention) / 100.0;
+	if (timescale == 0) timescale = 0.01;
+
+	if (!regen) {
+		ship->health += (meditation / 50);
+		regen = REGEN_COOLDOWN_MAX;
+	}
+	if (ship->health < 0) ship->health = 100;
+	if (ship_cooldown > 0) ship_cooldown -= timescale;
+	if (ast_cooldown > 0) ast_cooldown -= timescale;
 
 	shipFramesetSwap^=60; //DON'T WORRY ABOUT IT :)
 	planet_sm_theta += 0.5 * timescale;

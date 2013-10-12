@@ -6,13 +6,14 @@ const int SCREEN_H = 600;
 const int MARGIN = 300;
 const int FPS = 60;
 const int PROJ_POOL_SIZE = 1000;
-const int AST_POOL_SIZE = 200;
+const int AST_POOL_SIZE = 2000;
 const int ENEMY_POOL_SIZE = 200;
 const int ENEMY_BOLT_POOL_SIZE = 200;
 const int BACKDROP_H = 1200;
 const int BACKDROP_W = 1920;
 const int SHOT_COOLDOWN_MAX = 10;
-int AST_COOLDOWN_MAX = 8;
+const int AST_COOLDOWN_MAX = 2;
+const int REGEN_COOLDOWN_MAX = 20;
 int SHOT_SPREAD = 1;
 int SHOT_OFFSET_X = 69;
 int SHOT_OFFSET_Y = 20;
@@ -22,6 +23,9 @@ float orbit_r = 400;
 float cameraX = 0;
 float cameraY = 800;
 float timescale = 1;
+int attention = 0;
+int meditation = 0;
+int regen = 0;
 
 typedef long long unsigned int llui;
 
@@ -115,12 +119,14 @@ ALLEGRO_BITMAP *backdrop = NULL;
 ALLEGRO_BITMAP *bg_stars = NULL;
 ALLEGRO_BITMAP *planet_lg = NULL;
 ALLEGRO_BITMAP *planet_sm = NULL;
+ALLEGRO_BITMAP *health_tray = NULL;
+ALLEGRO_BITMAP *health_bar = NULL;
 ALLEGRO_BITMAP *badguy = NULL;
 
 PROJP ship;
 int ship_spread_index = 0;
-int ship_cooldown = SHOT_COOLDOWN_MAX;
-int ast_cooldown = AST_COOLDOWN_MAX;
+float ship_cooldown = SHOT_COOLDOWN_MAX;
+float ast_cooldown = AST_COOLDOWN_MAX;
 
 SPP sl_pool;
 SPP ast_pool;

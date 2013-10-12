@@ -27,7 +27,7 @@ void ship_aster_coll(PROJP ship, PROJP asteroid)
 {
 	PROJP blastEffect = (PROJP)new_pool_item(blast_pool);
 	asteroid->health--;
-	ship->health--;
+	ship->health -= 6;
 	blastEffect->health = 34;
 	blastEffect->posX = asteroid->posX - 13.5;
 	blastEffect->posY = asteroid->posY - 13.5;

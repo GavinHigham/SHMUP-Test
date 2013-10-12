@@ -21,7 +21,11 @@ int load_textures()
 	bg_stars = al_load_bitmap("Backdrops/bg_stars.jpg");
 	planet_lg = al_load_bitmap("Backdrops/planet_lg2.png");
 	planet_sm = al_load_bitmap("Backdrops/planet_sm.png");
+
 	if (!bg_stars || !planet_sm || !planet_lg) printf("Some part of the backdrop failed to load.\n");
+
+	health_tray = al_load_bitmap("HealthBar/HealthBarTray.png");
+	health_bar = al_load_bitmap("HealthBar/HealthBar.png");
 
 	badguy = al_load_bitmap("BadGuy/BadGuy.png");
 
