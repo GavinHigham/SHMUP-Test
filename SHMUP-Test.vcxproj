@@ -20,12 +20,14 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -66,20 +68,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\..\code\SHMUP-Test\braintest.c" />
-    <ClCompile Include="..\..\..\..\..\..\..\code\SHMUP-Test\collision.c" />
-    <ClCompile Include="..\..\..\..\..\..\..\code\SHMUP-Test\game_draw.c" />
-    <ClCompile Include="..\..\..\..\..\..\..\code\SHMUP-Test\init.c" />
-    <ClCompile Include="..\..\..\..\..\..\..\code\SHMUP-Test\key_handling.c" />
-    <ClCompile Include="..\..\..\..\..\..\..\code\SHMUP-Test\logic_tick.c" />
-    <ClCompile Include="..\..\..\..\..\..\..\code\SHMUP-Test\main.c" />
-    <ClCompile Include="..\..\..\..\..\..\..\code\SHMUP-Test\proj.c" />
-    <ClCompile Include="..\..\..\..\..\..\..\code\SHMUP-Test\struct_pool.c" />
-    <ClCompile Include="..\..\..\..\..\..\..\code\SHMUP-Test\tex_load.c" />
+    <ClCompile Include="braintest.c" />
+    <ClCompile Include="collision.c" />
+    <ClCompile Include="game_draw.c" />
+    <ClCompile Include="init.c" />
+    <ClCompile Include="key_handling.c" />
+    <ClCompile Include="logic_tick.c" />
+    <ClCompile Include="main.c" />
+    <ClCompile Include="proj.c" />
+    <ClCompile Include="struct_pool.c" />
+    <ClCompile Include="tex_load.c" />
     <ClCompile Include="wintime.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\..\code\SHMUP-Test\definitions.h" />
+    <ClInclude Include="definitions.h" />
     <ClInclude Include="wintime.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
