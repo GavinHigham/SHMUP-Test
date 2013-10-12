@@ -1,6 +1,8 @@
-#pragma once
-
-//C stuff.
+#include "init.h"
+#include "struct_pool.h"
+#include "proj.h"
+#include "collision.h"
+///C stuff.
 #include <stdio.h>
 #include <stdlib.h>
 #ifdef _WIN32
@@ -11,15 +13,7 @@
 //Allegro stuff.
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
-//My stuff.
-#ifndef GUARDCHECK
-	#include "definitions.h"
-#endif
-#include "struct_pool.c"
-#include "proj.c"
-#include "collision.c"
 
-//Initializing random number generator.
 void init_random()
 {
 	//struct timeval tv;
@@ -28,10 +22,11 @@ void init_random()
 	//You can re-seed rapidly without getting the same results.
 	srand(time(NULL));
 }
-	
-//Initializing a bunch of allegro modules.
+
 int init_stuff()
 {
+	int collision_array_width;
+	int collision_array_height;
 	init_random();
 
 	if(!al_init())
@@ -123,6 +118,20 @@ int init_stuff()
 
 	//The +1 is for the ship projectile, the *4 is for the 4 corners of each projectile.
 	node_pool = init_smartItemPool((AST_POOL_SIZE + PROJ_POOL_SIZE + ENEMY_POOL_SIZE + ENEMY_BOLT_POOL_SIZE + 1) * 4, (void *(*)())&init_node);
+
+	// Set initial backdrop y position because this can't be done in the definitions C file beause reasons
+	backdropy = (SCREEN_H - BACKDROP_H) / 2;
+
+	// More "non-const" initialization??
+	ship_cooldown = SHOT_COOLDOWN_MAX;
+	ast_cooldown = AST_COOLDOWN_MAX;
+
+	// Set up collision array
+	collision_array_width = (SCREEN_W / 100);
+	collision_array_height = (SCREEN_H / 100);
+	collision_array = (COLLBOX **)malloc(collision_array_width*sizeof(COLLBOX *));
+	for(i = 0; i < collision_array_width; i++)
+		collision_array[i] = (COLLBOX *)malloc(collision_array_height*sizeof(COLLBOX));
 
 	//Return 0 if everything went okay.
 	return 0;

@@ -1,16 +1,15 @@
-#pragma once
-
+#include "logic_tick.h"
+#include "definitions.h"
+#include "collision.h"
 //C stuff.
 #include <stdio.h>
 #include <stdlib.h>
 //Allegro stuff.
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
-//My stuff.
-#ifndef GUARDCHECK
-	#include "definitions.h"
-#endif
-#include "proj.c"
+
+#include "proj.h"
+#include "struct_pool.h"
 
 void logic_tick()
 {

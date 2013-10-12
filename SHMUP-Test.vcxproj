@@ -50,8 +50,11 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)lib\allegro-5.0.10-msvc-11.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>allegro-5.0.x-monolith-md-debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>allegro-5.0.10-monolith-md-debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /D $(ProjectDir)lib\allegro-5.0.10-msvc-11.0\bin\allegro-5.0.10-monolith-md-debug.dll $(OutDir)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -68,8 +71,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="braintest.c" />
     <ClCompile Include="collision.c" />
+    <ClCompile Include="definitions.c" />
     <ClCompile Include="game_draw.c" />
     <ClCompile Include="init.c" />
     <ClCompile Include="key_handling.c" />
@@ -78,11 +81,20 @@
     <ClCompile Include="proj.c" />
     <ClCompile Include="struct_pool.c" />
     <ClCompile Include="tex_load.c" />
-    <ClCompile Include="wintime.c" />
+    <ClCompile Include="trig.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="collision.h" />
     <ClInclude Include="definitions.h" />
-    <ClInclude Include="wintime.h" />
+    <ClInclude Include="game_draw.h" />
+    <ClInclude Include="init.h" />
+    <ClInclude Include="key_handling.h" />
+    <ClInclude Include="logic_tick.h" />
+    <ClInclude Include="proj.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="struct_pool.h" />
+    <ClInclude Include="tex_load.h" />
+    <ClInclude Include="trig.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

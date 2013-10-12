@@ -1,26 +1,29 @@
-#pragma once
+#ifndef H_DEFINITIONS
+#define H_DEFINITIONS
+
+#include <allegro5/allegro.h>
 
 //#define ROOT
-const int SCREEN_W = 800;
-const int SCREEN_H = 600;
-const int MARGIN = 300;
-const int FPS = 60;
-const int PROJ_POOL_SIZE = 1000;
-const int AST_POOL_SIZE = 200;
-const int ENEMY_POOL_SIZE = 200;
-const int ENEMY_BOLT_POOL_SIZE = 200;
-const int BACKDROP_H = 1200;
-const int BACKDROP_W = 1920;
-const int SHOT_COOLDOWN_MAX = 10;
-const int AST_COOLDOWN_MAX = 8;
-int SHOT_SPREAD = 1;
-int SHOT_OFFSET_X = 69;
-int SHOT_OFFSET_Y = 20;
-float planet_sm_theta = 180;
-float viewing_angle = 80;
-float orbit_r = 400;
-float cameraX = 0;
-float cameraY = 800;
+extern const int SCREEN_W;
+extern const int SCREEN_H;
+extern const int MARGIN;
+extern const int FPS;
+extern const int PROJ_POOL_SIZE;
+extern const int AST_POOL_SIZE;
+extern const int ENEMY_POOL_SIZE;
+extern const int ENEMY_BOLT_POOL_SIZE;
+extern const int BACKDROP_H;
+extern const int BACKDROP_W;
+extern const int SHOT_COOLDOWN_MAX;
+extern const int AST_COOLDOWN_MAX;
+extern int SHOT_SPREAD;
+extern int SHOT_OFFSET_X;
+extern int SHOT_OFFSET_Y;
+extern float planet_sm_theta;
+extern float viewing_angle;
+extern float orbit_r;
+extern float cameraX;
+extern float cameraY;
 
 typedef long long unsigned int llui;
 
@@ -56,7 +59,7 @@ typedef struct projectile {
 } PROJ, *PROJP;
 
 //"Kind" will be an integer, but I enumerate its possible values here.
-enum {SHIP, BOLT, ASTEROID, ENEMY, BLAST, ENEMYBOLT};
+extern enum {SHIP, BOLT, ASTEROID, ENEMY, BLAST, ENEMYBOLT};
 
 typedef struct smartpool {
 	void **pool;
@@ -84,51 +87,53 @@ typedef struct collbox {
 	NODEP enemy_bolts;
 } COLLBOX, *COLLBOXP;
 
-VECTOR struct_zero_vector = {0, 0};
-VP zero_vec = &struct_zero_vector;
-int numcolgroups = 0;
+extern VECTOR struct_zero_vector;
+extern VP zero_vec;
+extern int numcolgroups;
 
-int i;
+extern int i;
 //Standard velocity.
-float stdv = 4.5;
+extern float stdv;
 //Value to scale x and y vel by if both keys are pressed.
-float diagscale = 0.71;
-int backdropx = 0;
-int backdropy = (SCREEN_H - BACKDROP_H) / 2;
+extern float diagscale;
+extern int backdropx;
+extern int backdropy;
 
-ALLEGRO_DISPLAY *display   = NULL;
-ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-ALLEGRO_TIMER *timer = NULL;
+extern ALLEGRO_DISPLAY *display;
+extern ALLEGRO_EVENT_QUEUE *event_queue;
+extern ALLEGRO_TIMER *timer;
 
-bool redraw = true;
-bool doexit = false;
+extern bool redraw;
+extern bool doexit;
 
-short boltFrame = 0;
-int shipFrame = 29;
-int shipFramesetSwap = 60;
-ALLEGRO_BITMAP *boltFrames[12];
-ALLEGRO_BITMAP *asteroidFrames[60];
-ALLEGRO_BITMAP *blastFrames[36];
-ALLEGRO_BITMAP *shipFrames[120];
-ALLEGRO_BITMAP *backdrop = NULL;
-ALLEGRO_BITMAP *bg_stars = NULL;
-ALLEGRO_BITMAP *planet_lg = NULL;
-ALLEGRO_BITMAP *planet_sm = NULL;
-ALLEGRO_BITMAP *badguy = NULL;
+extern short boltFrame;
+extern int shipFrame;
+extern int shipFramesetSwap;
+extern ALLEGRO_BITMAP *boltFrames[12];
+extern ALLEGRO_BITMAP *asteroidFrames[60];
+extern ALLEGRO_BITMAP *blastFrames[36];
+extern ALLEGRO_BITMAP *shipFrames[120];
+extern ALLEGRO_BITMAP *backdrop;
+extern ALLEGRO_BITMAP *bg_stars;
+extern ALLEGRO_BITMAP *planet_lg;
+extern ALLEGRO_BITMAP *planet_sm;
+extern ALLEGRO_BITMAP *badguy;
 
-PROJP ship;
-int ship_spread_index = 0;
-int ship_cooldown = SHOT_COOLDOWN_MAX;
-int ast_cooldown = AST_COOLDOWN_MAX;
+extern PROJP ship;
+extern int ship_spread_index;
+extern int ship_cooldown;
+extern int ast_cooldown;
 
-SPP sl_pool;
-SPP ast_pool;
-SPP blast_pool;
-SPP enemy_pool;
-SPP enemy_bolt_pool;
-SPP node_pool;
+extern SPP sl_pool;
+extern SPP ast_pool;
+extern SPP blast_pool;
+extern SPP enemy_pool;
+extern SPP enemy_bolt_pool;
+extern SPP node_pool;
 
-enum {KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_SPACE};
-bool key[5] = { false, false, false, false };
+extern enum {KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_SPACE};
+extern bool key[5];
 
-COLLBOX collision_array[SCREEN_W / 100][SCREEN_H / 100];
+extern COLLBOX **collision_array;
+
+#endif

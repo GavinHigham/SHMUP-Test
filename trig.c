@@ -1,4 +1,8 @@
-//const float M_PI = 3.1415926535897932384626433832795028841971693993751;
+#include "trig.h"
+#include <math.h>
+#ifdef _WIN32
+const float M_PI = 3.14159265359;
+#endif
 
 float deg_to_rad(float degrees)
 {

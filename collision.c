@@ -1,17 +1,11 @@
-#pragma once
-
+#include "collision.h"
+#include "struct_pool.h"
 //C stuff.
 #include <stdio.h>
 #include <stdlib.h>
 //Allegro stuff.
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
-//My stuff.
-#ifndef GUARDCHECK
-	#include "definitions.h"
-#endif
-#include "struct_pool.c"
-
 
 NODEP init_node()
 {
@@ -121,39 +115,39 @@ void point_checkin(PROJP pp, int pointX, int pointY)
 		switch(pp->kind) {
 			case SHIP:
 				if (!cbp->ship && node_pool->liveIndex < node_pool->poolsize) {
-					NODEP new = new_pool_item(node_pool);
-					new->index = node_pool->liveIndex - 1;
-					new->data = pp;
-					new->next = NULL;
+					NODEP new_tmp = (NODEP)new_pool_item(node_pool);
+					new_tmp->index = node_pool->liveIndex - 1;
+					new_tmp->data = pp;
+					new_tmp->next = NULL;
 					node_pool->liveIndex++;
-					cbp->ship = new;
+					cbp->ship = new_tmp;
 				}
 				break;
 			case BOLT:
 				if ((!cbp->bolts || pp != cbp->bolts->data) && node_pool->liveIndex < node_pool->poolsize) {
-					NODEP new = new_pool_item(node_pool);
-					new->index = node_pool->liveIndex - 1;
-					new->data = pp;
-					new->next = cbp->bolts;
-					cbp->bolts = new;
+					NODEP new_tmp = (NODEP)new_pool_item(node_pool);
+					new_tmp->index = node_pool->liveIndex - 1;
+					new_tmp->data = pp;
+					new_tmp->next = cbp->bolts;
+					cbp->bolts = new_tmp;
 				}
 				break;
 			case ASTEROID:
 				if ((!cbp->asteroids || pp != cbp->asteroids->data) && node_pool->liveIndex < node_pool->poolsize) {
-					NODEP new = new_pool_item(node_pool);
-					new->index = node_pool->liveIndex - 1;
-					new->data = pp;
-					new->next = cbp->asteroids;
-					cbp->asteroids = new;
+					NODEP new_tmp = (NODEP)new_pool_item(node_pool);
+					new_tmp->index = node_pool->liveIndex - 1;
+					new_tmp->data = pp;
+					new_tmp->next = cbp->asteroids;
+					cbp->asteroids = new_tmp;
 				}
 				break;
 			case ENEMY:
 				if ((!cbp->enemies || pp != cbp->enemies->data) && node_pool->liveIndex < node_pool->poolsize) {
-					NODEP new = new_pool_item(node_pool);
-					new->index = node_pool->liveIndex - 1;
-					new->data = pp;
-					new->next = cbp->enemies;
-					cbp->enemies = new;
+					NODEP new_tmp = (NODEP)new_pool_item(node_pool);
+					new_tmp->index = node_pool->liveIndex - 1;
+					new_tmp->data = pp;
+					new_tmp->next = cbp->enemies;
+					cbp->enemies = new_tmp;
 				}
 				break;
 			case BLAST:
@@ -161,11 +155,11 @@ void point_checkin(PROJP pp, int pointX, int pointY)
 				break;
 			case ENEMYBOLT:
 				if ((!cbp->enemy_bolts || pp != cbp->enemy_bolts->data) && node_pool->liveIndex < node_pool->poolsize) {
-					NODEP new = new_pool_item(node_pool);
-					new->index = node_pool->liveIndex - 1;
-					new->data = pp;
-					new->next = cbp->enemy_bolts;
-					cbp->enemy_bolts = new;
+					NODEP new_tmp = (NODEP)new_pool_item(node_pool);
+					new_tmp->index = node_pool->liveIndex - 1;
+					new_tmp->data = pp;
+					new_tmp->next = cbp->enemy_bolts;
+					cbp->enemy_bolts = new_tmp;
 				}
 				break;
 		}
@@ -193,7 +187,7 @@ void check_in_smartpool(SPP sp)
 	for (i = 0 ; i < sp->liveIndex; i++) {
 		//Update the index so it can be killed via reference.
 		((PROJP)sp->pool[i])->index = i;
-		check_in_proj(sp->pool[i]);
+		check_in_proj((PROJP)sp->pool[i]);
 	}
 	//printf("\n");
 }
