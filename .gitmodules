@@ -1,0 +1,3 @@
+[submodule "allegro"]
+	path = allegro
+	url = git://git.code.sf.net/p/alleg/allegro
