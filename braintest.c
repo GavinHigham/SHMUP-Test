@@ -58,15 +58,16 @@ int main()
     char  *cfg_string = json_dumps(cfg, 0);
     char *auth_string = json_dumps(auth, 0);
     sleep(2);
+
+    n = write(sockfd, cfg_string, strlen(cfg_string));
+    if (n < 0) 
+         error("ERROR writing to socket");
+    sleep(2);
     /*
     n = write(sockfd, auth_string, strlen(auth_string));
     if (n < 0) 
          error("ERROR writing to socket");
     */
-    n = write(sockfd, cfg_string, strlen(cfg_string));
-    if (n < 0) 
-         error("ERROR writing to socket");
-    sleep(2);
     fp = fopen("brainoutput.txt", "a+");
 
     bzero(buffer, 256);

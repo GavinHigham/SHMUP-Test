@@ -78,6 +78,8 @@ int main()
 	free_smartItemPool(ast_pool);
 	free_smartItemPool(blast_pool);
 	free_smartItemPool(node_pool);
+	free_smartItemPool(enemy_pool);
+	free_smartItemPool(enemy_bolt_pool);
 
 	return 0;
 }
