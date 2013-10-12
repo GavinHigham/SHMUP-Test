@@ -7,7 +7,7 @@
 #define AST_POOL_SIZE 200
 #define SHOT_COOLDOWN 2
 #define AST_COOLDOWN 8
-#define SHOT_SPREAD 0
+#define SHOT_SPREAD 1
 #define SHOT_OFFSET_X 69
 #define SHOT_OFFSET_Y 20
 #define BACKDROP_H 800
@@ -30,10 +30,10 @@ typedef struct ivector {
 } IVECT, *IVP;
 
 typedef struct projectile {
-	int posX;
-	int posY;
-	int velX;
-	int velY;
+	float posX;
+	float posY;
+	float velX;
+	float velY;
 	int sizeX;
 	int sizeY;
 	int offsetX;
