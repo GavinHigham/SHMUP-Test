@@ -1,7 +1,13 @@
+#pragma once
+
 //C stuff.
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/time.h> 
+#ifdef _WIN32
+	#include <time.h>
+#else
+	#include <sys/time.h>
+#endif
 //Allegro stuff.
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
@@ -9,7 +15,6 @@
 #include "definitions.h"
 #include "struct_pool.c"
 #include "proj.c"
-#include "collision.c"
 #include "init.c"
 #include "tex_load.c"
 #include "logic_tick.c"

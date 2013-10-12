@@ -1,3 +1,26 @@
+#pragma once
+
+//C stuff.
+#include <stdio.h>
+#include <stdlib.h>
+#ifdef _WIN32
+	#include <time.h>
+#else
+	#include <sys/time.h>
+#endif
+//Allegro stuff.
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
+//My stuff.
+#include "definitions.h"
+#include "struct_pool.c"
+#include "proj.c"
+#include "init.c"
+#include "tex_load.c"
+#include "logic_tick.c"
+#include "key_handling.c"
+#include "game_draw.c"
+
 void key_down(ALLEGRO_EVENT ev)
 {
 	switch(ev.keyboard.keycode) {
