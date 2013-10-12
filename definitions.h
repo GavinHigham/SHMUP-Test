@@ -1,19 +1,22 @@
 //#define ROOT
-#define SCREEN_W 800
-#define SCREEN_H 600
-#define MARGIN 300
-#define FPS 60
-#define PROJ_POOL_SIZE 1000
-#define AST_POOL_SIZE 200
-#define SHOT_COOLDOWN 2
-#define AST_COOLDOWN 8
-#define SHOT_SPREAD 1
-#define SHOT_OFFSET_X 69
-#define SHOT_OFFSET_Y 20
-#define BACKDROP_H 800
-#define BACKDROP_W 1280
-#define STARNUMBER 200
-#define COLLISIONDIVISION 9
+const int SCREEN_W = 800;
+const int SCREEN_H = 600;
+const int MARGIN = 300;
+const int FPS = 60;
+const int PROJ_POOL_SIZE = 1000;
+const int AST_POOL_SIZE = 200;
+const int BACKDROP_H = 1200;
+const int BACKDROP_W = 1920;
+const int SHOT_COOLDOWN_MAX = 10;
+const int AST_COOLDOWN_MAX = 8;
+int SHOT_SPREAD = 1;
+int SHOT_OFFSET_X = 69;
+int SHOT_OFFSET_Y = 20;
+float planet_sm_theta = 180;
+float viewing_angle = 80;
+float orbit_r = 400;
+float cameraX = 0;
+float cameraY = 800;
 
 typedef long long unsigned int llui;
 
@@ -81,8 +84,6 @@ VP zero_vec = &struct_zero_vector;
 int numcolgroups = 0;
 
 int i;
-short fps = 0;
-short logicTick = 0;
 //Standard velocity.
 float stdv = 4.5;
 //Value to scale x and y vel by if both keys are pressed.
@@ -103,13 +104,16 @@ int shipFramesetSwap = 60;
 ALLEGRO_BITMAP *boltFrames[12];
 ALLEGRO_BITMAP *asteroidFrames[60];
 ALLEGRO_BITMAP *blastFrames[36];
-ALLEGRO_BITMAP *backdrop = NULL;
 ALLEGRO_BITMAP *shipFrames[120];
+ALLEGRO_BITMAP *backdrop = NULL;
+ALLEGRO_BITMAP *bg_stars = NULL;
+ALLEGRO_BITMAP *planet_lg = NULL;
+ALLEGRO_BITMAP *planet_sm = NULL;
 
 PROJP ship;
 int ship_spread_index = 0;
-int ship_cooldown = SHOT_COOLDOWN;
-int ast_cooldown = AST_COOLDOWN;
+int ship_cooldown = SHOT_COOLDOWN_MAX;
+int ast_cooldown = AST_COOLDOWN_MAX;
 
 SPP sl_pool;
 SPP ast_pool;

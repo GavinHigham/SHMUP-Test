@@ -23,7 +23,7 @@ int main()
     json_t *cfg       = json_object();
     json_t *braindata = json_object();
     json_object_set(auth, "appName", json_string("TestFour"));
-    json_object_set(auth, "appKey", json_string("9f54141b4b4c567c558d3a76cb8d715cbde03096"));
+    //json_object_set(auth, "appKey", json_string("9f54141b4b4c567c558d3a76cb8d715cbde03096"));
     json_object_set(cfg, "enableRawOutput", json_false());
     json_object_set(cfg, "format", json_string("Json"));
 
@@ -57,11 +57,10 @@ int main()
 
     char  *cfg_string = json_dumps(cfg, 0);
     char *auth_string = json_dumps(auth, 0);
-    /*
+    sleep(2);
     n = write(sockfd, auth_string, strlen(auth_string));
     if (n < 0) 
          error("ERROR writing to socket");
-    */
     n = write(sockfd, cfg_string, strlen(cfg_string));
     if (n < 0) 
          error("ERROR writing to socket");

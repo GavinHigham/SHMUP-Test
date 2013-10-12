@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h> 
+#include <math.h>
 //Allegro stuff.
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
@@ -14,6 +15,7 @@
 #include "tex_load.c"
 #include "logic_tick.c"
 #include "key_handling.c"
+#include "trig.c"
 #include "game_draw.c"
 
 int main()
@@ -52,7 +54,8 @@ int main()
 		else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) break;
 		else if(ev.type == ALLEGRO_EVENT_KEY_DOWN) key_down(ev);
 		else if(ev.type == ALLEGRO_EVENT_KEY_UP) key_up(ev);
-		if(redraw && al_is_event_queue_empty(event_queue)) game_draw();
+		if(redraw && al_is_event_queue_empty(event_queue))
+			game_draw();
 	}
 
 	//Free all the things!
