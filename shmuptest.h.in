@@ -1,0 +1,3 @@
+// the configured options and settings for Tutorial
+#define SHMUPTEST_VERSION_MAJOR @SHMUP-Test_Version_Major@
+#define SHMUPTEST_VERSION_MINOR @SHMUP-Test_Version_Minor@

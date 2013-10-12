@@ -1,20 +1,26 @@
 //C stuff.
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/time.h> 
-#include <math.h>
+#ifdef _WIN32
+	#include <time.h>
+#else
+	#include <sys/time.h>
+#endif
 //Allegro stuff.
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 //My stuff.
-#include "definitions.h"
+#ifndef GUARDCHECK
+	#include "definitions.h"
+#endif
+#include "collision.c"
 #include "struct_pool.c"
 #include "proj.c"
-#include "collision.c"
 #include "init.c"
 #include "tex_load.c"
 #include "logic_tick.c"
 #include "key_handling.c"
+#include "math.h"
 #include "trig.c"
 #include "game_draw.c"
 

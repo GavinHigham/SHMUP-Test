@@ -1,2 +1,27 @@
-.orig
-.xcodeproj
+# Let's take a moment to appreciate hating ourselves a little less than we usually do.
+
+# Prebuilds, really
+/lib
+
+# Build directories
+/Debug
+/Release
+
+# Backup files we don't need since we're using proper SCM (git)
+*.orig
+
+# I guess we don't want to deal with Xcode yet
+*.xcodeproj
+
+# Visual Studio user files
+*.suo
+
+# Visual Studio upgrade things
+UpgradeLog*.XML
+UpgradeLog*.htm
+_UpgradeReport_Files
+/Backup*
+
+# What the fuck is this
+*.sdf
+*.opensdf

@@ -1,6 +1,21 @@
+#pragma once
+
+//C stuff.
+#include <stdio.h>
+#include <stdlib.h>
+//Allegro stuff.
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
+//My stuff.
+#ifndef GUARDCHECK
+	#include "definitions.h"
+#endif
+#include "struct_pool.c"
+
+
 NODEP init_node()
 {
-	NODEP np = malloc(sizeof(NODE));
+	NODEP np = (NODEP)malloc(sizeof(NODE));
 	np->data = NULL;
 	np->next = NULL;
 	return np;
@@ -10,11 +25,11 @@ NODEP init_node()
 
 void ship_aster_coll(PROJP ship, PROJP asteroid)
 {
+	PROJP blastEffect = (PROJP)new_pool_item(blast_pool);
 	//printf("The ship takes a hit!\n");
 	//printf("%llx & %llx\n", (llui)ship, (llui)asteroid);
 	asteroid->health--;
 	ship->health--;
-	PROJP blastEffect = new_pool_item(blast_pool);
 	blastEffect->health = 34;
 	blastEffect->posX = asteroid->posX - 13.5;
 	blastEffect->posY = asteroid->posY - 13.5;
@@ -23,11 +38,11 @@ void ship_aster_coll(PROJP ship, PROJP asteroid)
 }
 void bolt_aster_coll(PROJP bolt, PROJP asteroid)
 {
+	PROJP blastEffect = (PROJP)new_pool_item(blast_pool);
 	//printf("An asteroid is hit by a bolt!\n");
 	//printf("%llx & %llx\n", (llui)bolt, (llui)asteroid);
 	bolt->health--;
 	asteroid->health--;
-	PROJP blastEffect = (PROJP)new_pool_item(blast_pool);
 	blastEffect->health = 34;
 	blastEffect->posX = asteroid->posX - 13.5;
 	blastEffect->posY = asteroid->posY - 13.5;

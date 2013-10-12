@@ -1,7 +1,20 @@
+#pragma once
+
+//C stuff.
+#include <stdio.h>
+#include <stdlib.h>
+//Allegro stuff.
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
+//My stuff.
+#ifndef GUARDCHECK
+	#include "definitions.h"
+#endif
+
 //Inits a proj and zeroes most of the values.
 PROJP init_proj()
 {
-	PROJP pp = malloc(sizeof(PROJ));
+	PROJP pp = (PROJP)malloc(sizeof(PROJ));
 	pp->posX = 0;
 	pp->posY = 0;
 	pp->velX = 0;

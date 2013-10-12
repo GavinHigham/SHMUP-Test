@@ -1,3 +1,16 @@
+#pragma once
+
+//C stuff.
+#include <stdio.h>
+#include <stdlib.h>
+//Allegro stuff.
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
+//My stuff.
+#ifndef GUARDCHECK
+	#include "definitions.h"
+#endif
+
 //This is my implementation for what I call a "struct pool", a way to initialize
 //and store a bunch of reused structs to avoid allocating memory when stuff is running.
 
@@ -58,8 +71,8 @@ void update_pool(SPP sp, void (*struct_update)(SPP, int)) {
 //that you wish to fill the pool with.
 SPP init_smartItemPool(int count, void *(init_struct)())
 {
-	SPP sp = malloc(sizeof(SMARTPOOL));
-	sp->pool = malloc(sizeof(void *)*count);
+	SPP sp = (SPP)malloc(sizeof(SMARTPOOL));
+	sp->pool = (void *)malloc(sizeof(void *) * count);
 	init_struct_pool((void **)sp->pool, count, init_struct);
 	sp->liveIndex = 0;
 	sp->poolsize = count;
