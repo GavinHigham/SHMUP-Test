@@ -4,7 +4,7 @@
 #include <sys/time.h> 
 //Allegro stuff.
 #include <allegro5/allegro.h>
-#include "allegro5/allegro_image.h"
+#include <allegro5/allegro_image.h>
 //My stuff.
 #include "definitions.h"
 #include "struct_pool.c"

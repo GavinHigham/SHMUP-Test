@@ -4,10 +4,10 @@
 #define MARGIN 300
 #define FPS 60
 #define PROJ_POOL_SIZE 1000
-#define AST_POOL_SIZE 2000
-#define SHOT_COOLDOWN 0
-#define AST_COOLDOWN 0
-#define SHOT_SPREAD 10
+#define AST_POOL_SIZE 200
+#define SHOT_COOLDOWN 2
+#define AST_COOLDOWN 8
+#define SHOT_SPREAD 0
 #define SHOT_OFFSET_X 69
 #define SHOT_OFFSET_Y 20
 #define BACKDROP_H 800

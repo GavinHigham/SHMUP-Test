@@ -51,7 +51,7 @@ void logic_tick()
 	//Creation and swapping of laser projectiles.
 	if (key[KEY_SPACE] && !ship_cooldown && sl_pool->liveIndex < sl_pool->poolsize) {
 		PROJP new = (PROJP)new_pool_item(sl_pool);
-		new->health = 10;
+		new->health = 1;
 		new->posX = ship->posX + SHOT_OFFSET_X;
 		new->posY = ship->posY + SHOT_OFFSET_Y;
 		new->velX = 15;
