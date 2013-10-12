@@ -1,5 +1,3 @@
-#pragma once
-
 //C stuff.
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,7 +10,10 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 //My stuff.
-#include "definitions.h"
+#ifndef GUARDCHECK
+	#include "definitions.h"
+#endif
+#include "collision.c"
 #include "struct_pool.c"
 #include "proj.c"
 #include "init.c"

@@ -3,23 +3,14 @@
 //C stuff.
 #include <stdio.h>
 #include <stdlib.h>
-#ifdef _WIN32
-	#include <time.h>
-#else
-	#include <sys/time.h>
-#endif
 //Allegro stuff.
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 //My stuff.
-#include "definitions.h"
-#include "struct_pool.c"
+#ifndef GUARDCHECK
+	#include "definitions.h"
+#endif
 #include "proj.c"
-#include "init.c"
-#include "tex_load.c"
-#include "logic_tick.c"
-#include "key_handling.c"
-#include "game_draw.c"
 
 void logic_tick()
 {

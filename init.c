@@ -12,23 +12,21 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 //My stuff.
-#include "definitions.h"
+#ifndef GUARDCHECK
+	#include "definitions.h"
+#endif
 #include "struct_pool.c"
 #include "proj.c"
-#include "init.c"
-#include "tex_load.c"
-#include "logic_tick.c"
-#include "key_handling.c"
-#include "game_draw.c"
+#include "collision.c"
 
 //Initializing random number generator.
 void init_random()
 {
 	struct timeval tv;
-	gettimeofday(&tv, NULL);
+	//gettimeofday(&tv, NULL);
 	//Seeding with microseconds.
 	//You can re-seed rapidly without getting the same results.
-	srand(tv.tv_usec);
+	srand(time(NULL));
 }
 	
 //Initializing a bunch of allegro modules.
@@ -79,7 +77,7 @@ int init_stuff()
 	//Setup the ship's laser pool.
 	sl_pool = init_smartItemPool(PROJ_POOL_SIZE, (void *(*)())&init_proj);
 	for (i = 0; i < sl_pool->poolsize; i++) {
-		PROJP tmp = sl_pool->pool[i];
+		PROJP tmp = (PROJP)sl_pool->pool[i];
 		tmp->kind = BOLT;
 		tmp->sizeX = 50;
 		tmp->sizeY = 20;
@@ -88,7 +86,7 @@ int init_stuff()
 	//Setup some asteroids for test purposes.
 	ast_pool = init_smartItemPool(AST_POOL_SIZE, (void *(*)())&init_proj);
 	for (i = 0; i < ast_pool->poolsize; i++) {
-		PROJP tmp = ast_pool->pool[i];
+		PROJP tmp = (PROJP)ast_pool->pool[i];
 		tmp->kind = ASTEROID;
 		tmp->offsetX = 6;
 		tmp->offsetY = 7;
@@ -98,7 +96,7 @@ int init_stuff()
 
 	blast_pool = init_smartItemPool(PROJ_POOL_SIZE, (void *(*)())&init_proj);
 	for (i = 0; i < blast_pool->poolsize; i++) {
-		PROJP tmp = blast_pool->pool[i];
+		PROJP tmp = (PROJP)blast_pool->pool[i];
 		tmp->kind = BLAST;
 		tmp->health = 36;
 		tmp->animFrame = 0;
