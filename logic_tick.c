@@ -22,7 +22,7 @@ void aimEnemyShot(PROJP ship, PROJP enemyShot) {
 	enemyShot->velY = (yDist / hyp) * velocity;
 }
 
-void shipExplosion(PROJP ship, PROJP explosion){
+void shipExplosion(PROJP ship, PROJP explosion) {
 	float xOffset = 20;
 	float yOffset = 15;
 	explosion = (PROJP)new_pool_item(blast_pool);

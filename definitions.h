@@ -24,7 +24,10 @@ float viewing_angle = 80;
 float orbit_r = 400;
 float cameraX = 0;
 float cameraY = 800;
-float timescale = 1.0;
+int attention = 0;
+int meditation = 0;
+float regen = 0;
+float timescale = 1;
 
 typedef long long unsigned int llui;
 
@@ -134,9 +137,6 @@ float enemy_cooldown = ENEMY_COOLDOWN_MAX;
 float enemy_bolt_cooldown = ENEMY_BOLT_COOLDOWN_MAX;
 float explosion_countdown = 0;
 bool lost = false;
-int attention = 0;
-int meditation = 0;
-float regen = 0;
 
 SPP sl_pool;
 SPP ast_pool;

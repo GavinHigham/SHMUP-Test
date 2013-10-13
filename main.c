@@ -46,7 +46,7 @@ void * parse_the_junk(ALLEGRO_THREAD *le_thread, void *data)
     json_t *cfg       = json_object();
     json_t *braindata = json_object();
     json_object_set(auth, "appName", json_string("TestFour"));
-    json_object_set(auth, "appKey", json_string("cad1aa3e1f6157363dd4b121d35ecdacb3a56fdf"));
+    json_object_set(auth, "appKey", json_string("ffdab17b99842cd1ed538b2c08472e2b72a9d5c8"));
     json_object_set(cfg, "enableRawOutput", json_false());
     json_object_set(cfg, "format", json_string("Json"));
 
@@ -111,7 +111,7 @@ void * parse_the_junk(ALLEGRO_THREAD *le_thread, void *data)
             if (attention_tmp != 0) attention = attention_tmp;
             int meditation_tmp = (int)json_integer_value(json_object_get(eSense, "meditation"));
             if (meditation_tmp != 0) meditation = meditation_tmp; 
-            printf("a: %f, m: %f\n", attention, meditation);
+            printf("a: %i, m: %i\n", attention, meditation);
         }
     }
     close(sockfd);
