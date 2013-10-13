@@ -12,6 +12,15 @@
 #endif
 #include "proj.c"
 
+void aimEnemyShot(PROJP ship, PROJP enemyShot) {
+	float velocity = 10;
+	float xDist = ship->posX - enemyShot->posX;
+	float yDist = ship->posY - enemyShot->posY;
+	float hyp = sqrt(pow(xDist, 2) + pow(yDist, 2));
+	enemyShot->velX = (xDist / hyp) * velocity;
+	enemyShot->velY = (yDist / hyp) * velocity;
+}
+
 void logic_tick()
 {
 	backAx += timescale * 9;
@@ -20,7 +29,7 @@ void logic_tick()
 	if (regen > 0) regen --;
 
 	timescale = (100 - attention) / 100.0;
-	if (timescale == 0) timescale = 0.01;
+	//if (timescale == 0.0) timescale = 0.01;
 
 	if (!regen) {
 		ship->health += (meditation / 50);
@@ -126,6 +135,21 @@ void logic_tick()
 		}
 	}
 
+	update_pool(enemy_bolt_pool, &proj_update);
+
+	for (i = 0; i < 2; i++) {
+		PROJP aggressor = enemy_pool->pool[rand() % (enemy_pool->liveIndex + 1)];
+		//Creation and swapping of enemy bolts.
+		if (!proj_offscreen(aggressor, SCREEN_W, SCREEN_H, -10) && enemy_bolt_cooldown <= 0 && enemy_bolt_pool->liveIndex < enemy_bolt_pool->poolsize) {
+			PROJP tmp_new = (PROJP)new_pool_item(enemy_bolt_pool);
+			tmp_new->health = 1;
+			tmp_new->posX = aggressor->posX + 15;
+			tmp_new->posY = aggressor->posY + 50;
+			aimEnemyShot(ship, tmp_new);
+			if (enemy_bolt_cooldown <= 0) enemy_bolt_cooldown = ENEMY_BOLT_COOLDOWN_MAX;
+		}
+	}
+
 	update_pool(blast_pool, &proj_update);
 	for (i = 0; i < blast_pool->liveIndex; i++) {
 		if (((PROJP)blast_pool->pool[i])->health > 0) ((PROJP)blast_pool->pool[i])->health--;
@@ -140,6 +164,7 @@ void logic_tick()
 	check_in_smartpool(sl_pool);
 	check_in_smartpool(ast_pool);
 	check_in_smartpool(enemy_pool);
+	check_in_smartpool(enemy_bolt_pool);
 	//printf("Smartpool check-in was successful.\n");
 	do_collision();
 	//printf("Collision was successful.\n");

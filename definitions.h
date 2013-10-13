@@ -15,7 +15,7 @@ const int SHOT_COOLDOWN_MAX = 10;
 const int AST_COOLDOWN_MAX = 2;
 const int REGEN_COOLDOWN_MAX = 20;
 const int ENEMY_COOLDOWN_MAX = 40;
-const int ENEMY_BOLT_COOLDOWN_MAX = 10;
+const int ENEMY_BOLT_COOLDOWN_MAX = 20;
 int SHOT_SPREAD = 1;
 int SHOT_OFFSET_X = 69;
 int SHOT_OFFSET_Y = 20;
@@ -126,6 +126,7 @@ ALLEGRO_BITMAP *planet_sm = NULL;
 ALLEGRO_BITMAP *health_tray = NULL;
 ALLEGRO_BITMAP *health_bar = NULL;
 ALLEGRO_BITMAP *badguy = NULL;
+ALLEGRO_BITMAP *enemy_bolt_sprite = NULL;
 
 PROJP ship;
 int ship_spread_index = 0;

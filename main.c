@@ -110,6 +110,7 @@ void * parse_the_junk(ALLEGRO_THREAD *le_thread, void *data)
             if (attention_tmp != 0) attention = attention_tmp;
             int meditation_tmp = (int)json_integer_value(json_object_get(eSense, "meditation"));
             if (meditation_tmp != 0) meditation = meditation_tmp; 
+            printf("a:%i, m:%i\n", attention, meditation);
         }
     }
     close(sockfd);

@@ -120,6 +120,10 @@ int init_stuff()
 	for (i = 0; i < enemy_bolt_pool->poolsize; i++) {
 		PROJP tmp = (PROJP)enemy_bolt_pool->pool[i];
 		tmp->kind = ENEMYBOLT;
+		tmp->offsetX = 5;
+		tmp->offsetY = 5;
+		tmp->sizeX = 30;
+		tmp->sizeY = 30;
 		tmp->health = 1;
 	}
 

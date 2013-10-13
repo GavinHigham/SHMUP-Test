@@ -59,6 +59,11 @@ void game_draw()
 	al_draw_bitmap(badguy, ((PROJP)enemy_pool->pool[i])->posX, ((PROJP)enemy_pool->pool[i])->posY, 0);
 	}
 
+	//Draw the enemy bolts.
+	for (i = 0; i < enemy_bolt_pool->liveIndex; i++) {
+		al_draw_bitmap(enemy_bolt_sprite, ((PROJP)enemy_bolt_pool->pool[i])->posX, ((PROJP)enemy_bolt_pool->pool[i])->posY, 0);
+	}
+
 	//Draw the blasts.
 	for (i = 0; i < blast_pool->liveIndex; i++) {
 		al_draw_bitmap(blastFrames[34 - ((PROJP)blast_pool->pool[i])->health], ((PROJP)blast_pool->pool[i])->posX, ((PROJP)blast_pool->pool[i])->posY, 0);

@@ -29,6 +29,7 @@ int load_textures()
 	health_bar = al_load_bitmap("HealthBar/HealthBar.png");
 
 	badguy = al_load_bitmap("BadGuy/BadGuy.png");
+	enemy_bolt_sprite = al_load_bitmap("EnemyBolt/EnemyBolt.png");
 
 	//Loading in the bolt frames.
 	for (i = 0; i < 12; i++) {

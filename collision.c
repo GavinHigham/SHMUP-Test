@@ -108,6 +108,7 @@ void clear_collboxes()
 			temp->bolts = NULL;
 			temp->asteroids = NULL;
 			temp->enemies = NULL;
+			temp->enemy_bolts = NULL;
 		}
 	}
 	node_pool->liveIndex = 0;
