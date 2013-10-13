@@ -27,6 +27,7 @@ int load_textures()
 
 	health_tray = al_load_bitmap("HealthBar/HealthBarTray.png");
 	health_bar = al_load_bitmap("HealthBar/HealthBar.png");
+	loss = al_load_bitmap("Backdrops/loss.png");
 
 	badguy = al_load_bitmap("BadGuy/BadGuy.png");
 	enemy_bolt_sprite = al_load_bitmap("EnemyBolt/EnemyBolt.png");

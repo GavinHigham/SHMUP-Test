@@ -102,7 +102,6 @@ void * parse_the_junk(ALLEGRO_THREAD *le_thread, void *data)
         bzero(buffer, 256);
         while(read(sockfd,&buffer[k],1) && buffer[k] != '\r' && k < 256) {
             k++;
-            //printf("%c", buffer[k]);
         }
         braindata = json_loads(buffer, k, errors);
         json_t *eSense = json_object_get(braindata, "eSense");
@@ -111,7 +110,6 @@ void * parse_the_junk(ALLEGRO_THREAD *le_thread, void *data)
             if (attention_tmp != 0) attention = attention_tmp;
             int meditation_tmp = (int)json_integer_value(json_object_get(eSense, "meditation"));
             if (meditation_tmp != 0) meditation = meditation_tmp; 
-            printf("a: %f, m: %f\n", attention, meditation);
         }
     }
     close(sockfd);
@@ -174,14 +172,12 @@ int main()
 	for (i = 0; i < 120; i++) al_destroy_bitmap(shipFrames[i]);
 	for (i = 0; i < 35; i++) al_destroy_bitmap(blastFrames[i]);
 	al_destroy_bitmap(backdrop);
-	al_destroy_bitmap(bg_starsA);
-	al_destroy_bitmap(bg_starsB);
+	al_destroy_bitmap(bg_stars);
 	al_destroy_bitmap(planet_lg);
 	al_destroy_bitmap(planet_sm);
 	al_destroy_bitmap(health_tray);
 	al_destroy_bitmap(health_bar);
 	al_destroy_bitmap(badguy);
-    al_destroy_bitmap(loss);
 	al_destroy_timer(timer);
 	al_destroy_display(display);
 	al_destroy_event_queue(event_queue);

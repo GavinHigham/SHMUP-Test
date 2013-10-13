@@ -24,10 +24,7 @@ float viewing_angle = 80;
 float orbit_r = 400;
 float cameraX = 0;
 float cameraY = 800;
-float timescale = 1;
-int attention = 0;
-int meditation = 0;
-int regen = 0;
+float timescale = 1.0;
 
 typedef long long unsigned int llui;
 
@@ -127,6 +124,7 @@ ALLEGRO_BITMAP *health_tray = NULL;
 ALLEGRO_BITMAP *health_bar = NULL;
 ALLEGRO_BITMAP *badguy = NULL;
 ALLEGRO_BITMAP *enemy_bolt_sprite = NULL;
+ALLEGRO_BITMAP *loss = NULL;
 
 PROJP ship;
 int ship_spread_index = 0;
@@ -134,6 +132,11 @@ float ship_cooldown = SHOT_COOLDOWN_MAX;
 float ast_cooldown = AST_COOLDOWN_MAX;
 float enemy_cooldown = ENEMY_COOLDOWN_MAX;
 float enemy_bolt_cooldown = ENEMY_BOLT_COOLDOWN_MAX;
+float explosion_countdown = 0;
+bool lost = false;
+int attention = 0;
+int meditation = 0;
+float regen = 0;
 
 SPP sl_pool;
 SPP ast_pool;

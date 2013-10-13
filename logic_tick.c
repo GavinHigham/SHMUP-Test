@@ -11,6 +11,7 @@
 	#include "definitions.h"
 #endif
 #include "proj.c"
+#include <math.h>
 
 void aimEnemyShot(PROJP ship, PROJP enemyShot) {
 	float velocity = 10;
@@ -21,21 +22,42 @@ void aimEnemyShot(PROJP ship, PROJP enemyShot) {
 	enemyShot->velY = (yDist / hyp) * velocity;
 }
 
+void shipExplosion(PROJP ship, PROJP explosion){
+	float xOffset = 20;
+	float yOffset = 15;
+	explosion = (PROJP)new_pool_item(blast_pool);
+	explosion->posX = ship->posX + xOffset + (rand() % 55);
+	explosion->posY = ship->posY + yOffset + (rand() % 14);
+	explosion->velX = ship->velX * 0.6;
+	explosion->velY = ship->velY * 0.6;
+}
+
 void logic_tick()
 {
-	backAx += timescale * 9;
+	backAx = backAx + (timescale * 9);
 	if (backAx >= 960) backAx -= 1920;
 
 	if (regen > 0) regen --;
 
 	timescale = (100 - attention) / 100.0;
-	//if (timescale == 0.0) timescale = 0.01;
+	if (timescale < 0.01) timescale = 0.01;
 
 	if (!regen) {
 		ship->health += (meditation / 50);
 		regen = REGEN_COOLDOWN_MAX;
 	}
-	if (ship->health < 0) ship->health = 100;
+	if (ship->health < 0) {
+		ship->health = 100;
+		explosion_countdown = 1500;
+		lost = true;
+	}
+	if (lost && explosion_countdown > 0) {
+		explosion_countdown -= timescale;
+		PROJP blastEffect = (PROJP)new_pool_item(blast_pool);
+		blastEffect->health = 34;
+		shipExplosion(ship, blastEffect);
+	}
+
 	if (ship_cooldown > 0) ship_cooldown -= timescale;
 	if (ast_cooldown > 0) ast_cooldown -= timescale;
 	if (enemy_cooldown > 0) enemy_cooldown -= timescale;

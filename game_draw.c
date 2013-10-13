@@ -75,5 +75,7 @@ void game_draw()
 	if (health_tray_width < 4) health_tray_width = 4;
 	al_draw_bitmap_region(health_bar, 0, 0, health_tray_width, 19, 0, 0, 0);
 
+	if (lost && explosion_countdown > 0) al_draw_bitmap(loss, 150, 150, 0);
+
 	al_flip_display();
 }
