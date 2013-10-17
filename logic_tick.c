@@ -14,7 +14,7 @@
 #include <math.h>
 
 void aimEnemyShot(PROJP ship, PROJP enemyShot) {
-	float velocity = 10;
+	float velocity = 5;
 	float xDist = ship->posX - enemyShot->posX;
 	float yDist = ship->posY - enemyShot->posY;
 	float hyp = sqrt(pow(xDist, 2) + pow(yDist, 2));
@@ -34,13 +34,14 @@ void shipExplosion(PROJP ship, PROJP explosion) {
 
 void logic_tick()
 {
+	//printf("timescale: %f\n", timescale);
 	backAx = backAx + (timescale * 9);
 	if (backAx >= 960) backAx -= 1920;
 
 	if (regen > 0) regen --;
 
-	timescale = (100 - attention) / 100.0;
-	if (timescale < 0.01) timescale = 0.01;
+	//timescale = (100 - attention) / 100.0;
+	//if (timescale < 0.01) timescale = 0.01;
 
 	if (!regen) {
 		ship->health += (meditation / 50);
@@ -80,21 +81,23 @@ void logic_tick()
 	//Checking ship movement keys.
 	if(key[KEY_UP]) {
 		ship->velY -= stdv;
-		if (shipFrame < 58) shipFrame+= 3;
-		if (backdropy < 0) backdropy++;
+		shipFrame += 3 * timescale;
+		if (shipFrame > 58) shipFrame = 58;
+		if (backdropy < 0) backdropy += 0.1;
 	}
 	if(key[KEY_DOWN]) {
 		ship->velY += stdv;
-		if (shipFrame > 1) shipFrame-= 3;
-		if (backdropy + BACKDROP_H > SCREEN_H) backdropy--;
+		shipFrame -= 3 * timescale;
+		if (shipFrame < 1) shipFrame = 1;
+		if (backdropy + BACKDROP_H > SCREEN_H) backdropy -= 0.1;
 	}
 	if(key[KEY_LEFT]) {
 		ship->velX -= stdv;
-		if (backdropx < 0) backdropx++;
+		if (backdropx < 0) backdropx += 0.1;
 	}
 	if(key[KEY_RIGHT]) {
 		ship->velX += stdv;
-		if (backdropx + BACKDROP_W > SCREEN_W) backdropx--;
+		if (backdropx + BACKDROP_W > SCREEN_W) backdropx -= 0.1;
 	}
 
 	if (ship->velX && ship->velY) {
@@ -102,8 +105,8 @@ void logic_tick()
 		ship->velY *= diagscale;
 	}
 
-	if (shipFrame > 29) shipFrame-=2;
-	if (shipFrame < 29) shipFrame+=2;
+	if (shipFrame > 29) shipFrame -= 2 * timescale;
+	if (shipFrame < 29) shipFrame += 2 * timescale;
 
 	update_proj_position(ship);
 

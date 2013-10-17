@@ -35,7 +35,7 @@
 void error(const char *msg)
 {
     perror(msg);
-    exit(0);
+    //exit(0);
 }
 
 void * parse_the_junk(ALLEGRO_THREAD *le_thread, void *data)
@@ -81,7 +81,7 @@ void * parse_the_junk(ALLEGRO_THREAD *le_thread, void *data)
     char *auth_string = json_dumps(auth, 0);
     //Authenticate!
     n = write(sockfd, auth_string, strlen(auth_string));
-    if (n < 0) 
+    if (n < 0)
          error("ERROR writing to socket");
     sleep(2);
     //Configure!
@@ -123,10 +123,11 @@ void * parse_the_junk(ALLEGRO_THREAD *le_thread, void *data)
 
 int main()
 {
-	char c = 'k';
+    /*
 	ALLEGRO_THREAD *other_thread = NULL;
 	other_thread = al_create_thread(parse_the_junk, &c);
 	al_start_thread(other_thread);
+    */
 
 	//Initializing a bunch of modules.
 	if (init_stuff()) return -1;
@@ -167,7 +168,7 @@ int main()
 	}
 
 	//Destroy the other thread!
-	al_destroy_thread(other_thread);
+	//al_destroy_thread(other_thread);
 	//Free all the things!
 	for (i = 0; i < 60; i++) al_destroy_bitmap(asteroidFrames[i]);
 	for (i = 0; i < 12; i++) al_destroy_bitmap(boltFrames[i]);

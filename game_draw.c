@@ -42,7 +42,7 @@ void game_draw()
 
 	for (i = 0; i < ast_pool->liveIndex; i++) {
 		//printf("Attempting to draw asteroid %4i\n", i);
-		al_draw_bitmap(asteroidFrames[((PROJP)ast_pool->pool[i])->animFrame], ((PROJP)ast_pool->pool[i])->posX, ((PROJP)ast_pool->pool[i])->posY, 0);
+		al_draw_bitmap(asteroidFrames[(int)((PROJP)ast_pool->pool[i])->animFrame], ((PROJP)ast_pool->pool[i])->posX, ((PROJP)ast_pool->pool[i])->posY, 0);
 		//printf("Successfully drew asteroid  %4i\n", i);
 	}
 

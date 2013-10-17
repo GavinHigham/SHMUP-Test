@@ -6,16 +6,16 @@ const int SCREEN_H = 600;
 const int MARGIN = 300;
 const int FPS = 60;
 const int PROJ_POOL_SIZE = 1000;
-const int AST_POOL_SIZE = 2000;
+const int AST_POOL_SIZE = 1000;
 const int ENEMY_POOL_SIZE = 200;
 const int ENEMY_BOLT_POOL_SIZE = 200;
 const int BACKDROP_H = 1200;
 const int BACKDROP_W = 1920;
-const int SHOT_COOLDOWN_MAX = 10;
-const int AST_COOLDOWN_MAX = 2;
+const int SHOT_COOLDOWN_MAX = 8;
+const int AST_COOLDOWN_MAX = 4;
 const int REGEN_COOLDOWN_MAX = 20;
-const int ENEMY_COOLDOWN_MAX = 40;
-const int ENEMY_BOLT_COOLDOWN_MAX = 20;
+const int ENEMY_COOLDOWN_MAX = 45;
+const int ENEMY_BOLT_COOLDOWN_MAX = 35;
 int SHOT_SPREAD = 1;
 int SHOT_OFFSET_X = 69;
 int SHOT_OFFSET_Y = 20;
@@ -53,7 +53,7 @@ typedef struct projectile {
 	int offsetX;
 	int offsetY;
 	//void *next; //Used for collision.
-	int animFrame;
+	float animFrame;
 	//Used for temporary information.
 	//DO NOT EXPECT IT TO BE ACCURATE UNLESS UPDATED AND USED IMMEDIATELY.
 	int index;
@@ -100,8 +100,8 @@ int i;
 float stdv = 4.5;
 //Value to scale x and y vel by if both keys are pressed.
 float diagscale = 0.71;
-int backdropx = 0;
-int backdropy = (SCREEN_H - BACKDROP_H) / 2;
+float backdropx = 0;
+float backdropy = (SCREEN_H - BACKDROP_H) / 2;
 float backAx = 0;
 
 ALLEGRO_DISPLAY *display   = NULL;
@@ -112,7 +112,7 @@ bool redraw = true;
 bool doexit = false;
 
 short boltFrame = 0;
-int shipFrame = 29;
+float shipFrame = 29;
 int shipFramesetSwap = 60;
 ALLEGRO_BITMAP *boltFrames[12];
 ALLEGRO_BITMAP *asteroidFrames[60];

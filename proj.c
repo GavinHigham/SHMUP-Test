@@ -67,7 +67,7 @@ void proj_update(SPP sp, int i)
 	tmp = sp->pool[i]; //A different item may now be at i due to kill_item.
 	update_proj_position(tmp);
 
-	tmp->animFrame++;
-	tmp->animFrame %= 60;
+	tmp->animFrame += timescale;
+	if (tmp->animFrame >= 60) tmp->animFrame -= 60;
 }
 
