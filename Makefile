@@ -1,5 +1,5 @@
 CC=cc
-CFLAGS=  -c -Wall -Wextra -I/usr/local/include
+CFLAGS=  -c -Wall -Wextra -std=c99 -I/usr/local/include
 LIBS= -L/usr/local/lib -lallegro -lallegro_main -lallegro_image -lallegro_dialog -lallegro_primitives
 SOURCES:=$(shell echo *.c)
 OBJECTS:=$(patsubst %.c,%.o,${SOURCES})
