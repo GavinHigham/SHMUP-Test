@@ -16,11 +16,10 @@
 #include "struct_pool.h"
 #include "init.c"
 #include "tex_load.c"
-#include "logic_tick.c"
+#include "logic_tick.h"
 #include "key_handling.c"
 #include "trig.h"
 #include "game_draw.h"
-#include <math.h>
 //#include <unistd.h>
 //#include <string.h>
 //#include <sys/types.h>

@@ -7,14 +7,14 @@ TARGETS:=$(patsubst %.c,%,${SOURCES})
 
 all: main
 
-main: main.o collision.o definitions.o game_draw.o game_entities.o game_pools.o proj.o struct_pool.o trig.o
-	$(CC) $(LIBS) main.o collision.o definitions.o game_draw.o game_entities.o game_pools.o proj.o struct_pool.o trig.o -o main
+main: main.o collision.o definitions.o game_draw.o game_entities.o game_pools.o logic_tick.o proj.o struct_pool.o trig.o
+	$(CC) $(LIBS) main.o collision.o definitions.o game_draw.o game_entities.o game_pools.o logic_tick.o proj.o struct_pool.o trig.o -o main
 
 main.o: main.c additional_main
 	$(CC) $(CFLAGS) main.c
 
 #If we change C sources that main imports, recompile.
-additional_main: init.c key_handling.c logic_tick.c tex_load.c
+additional_main: init.c key_handling.c tex_load.c
 
 collision.o: collision.c
 	$(CC) $(CFLAGS) collision.c
@@ -30,6 +30,9 @@ game_entities.o: game_entities.c
 
 game_pools.o: game_pools.c
 	$(CC) $(CFLAGS) game_pools.c
+
+logic_tick.o: logic_tick.c
+	$(CC) $(CFLAGS) logic_tick.c
 
 proj.o: proj.c
 	$(CC) $(CFLAGS) proj.c

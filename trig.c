@@ -1,5 +1,4 @@
 #include "trig.h"
-#include <math.h>
 
 float deg_to_rad(float degrees)
 {
