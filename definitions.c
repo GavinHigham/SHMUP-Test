@@ -2,14 +2,6 @@
 
 int MARGIN = 300;
 int FPS = 60;
-const int PROJ_POOL_SIZE = 1000;
-const int ENEMY_POOL_SIZE = 200;
-const int ENEMY_BOLT_POOL_SIZE = 200;
-const int SHOT_COOLDOWN_MAX = 4;
-const int AST_COOLDOWN_MAX = 3;
-const int REGEN_COOLDOWN_MAX = 20;
-const int ENEMY_COOLDOWN_MAX = 45;
-const int ENEMY_BOLT_COOLDOWN_MAX = 35;
 int SHOT_SPREAD = 0;
 int SHOT_OFFSET_X = 69;
 int SHOT_OFFSET_Y = 20;
