@@ -10,28 +10,27 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 //My stuff.
-#ifndef GUARDCHECK
-	#include "definitions.h"
-#endif
-#include "collision.c"
-#include "struct_pool.c"
-#include "proj.c"
+#include "definitions.h"
+#include "collision.h"
+#include "proj.h"
+#include "struct_pool.h"
 #include "init.c"
 #include "tex_load.c"
 #include "logic_tick.c"
 #include "key_handling.c"
-#include "math.h"
-#include "trig.c"
-#include "game_draw.c"
-#include <unistd.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h> 
-#include <jansson.h>
-#include "parson/parson.c"
+#include "trig.h"
+#include "game_draw.h"
+#include <math.h>
+//#include <unistd.h>
+//#include <string.h>
+//#include <sys/types.h>
+//#include <sys/socket.h>
+//#include <netinet/in.h>
+//#include <netdb.h> 
+//#include <jansson.h>
+//#include "parson/parson.c"
 
+/*
 void error(const char *msg)
 {
     perror(msg);
@@ -119,10 +118,11 @@ void * parse_the_junk(ALLEGRO_THREAD *le_thread, void *data)
     free(auth_string);
     return NULL;
 }
-
+*/
 
 int main()
 {
+    int i;
     /*
 	ALLEGRO_THREAD *other_thread = NULL;
 	other_thread = al_create_thread(parse_the_junk, &c);

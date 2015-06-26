@@ -1,11 +1,12 @@
-//const float M_PI = 3.1415926535897932384626433832795028841971693993751;
+#include "trig.h"
+#include <math.h>
 
 float deg_to_rad(float degrees)
 {
-	return degrees * M_PI / 180;
+	return (M_PI / 180) * degrees; //Floating point mult/div is not commutative. Parens help the compiler optimize.
 }
 
 float rad_to_deg(float radians)
 {
-	return radians * 180 / M_PI;
+	return (180 / M_PI) * radians; //Floating point mult/div is not commutative. Parens help the compiler optimize.
 }

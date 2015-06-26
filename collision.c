@@ -1,17 +1,10 @@
-#pragma once
-
-//C stuff.
-#include <stdio.h>
-#include <stdlib.h>
 //Allegro stuff.
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
-//My stuff.
-#ifndef GUARDCHECK
-	#include "definitions.h"
-#endif
-#include "struct_pool.c"
+#include "proj.h"
+#include "collision.h"
+#include "game_pools.h"
+#include "game_entities.h"
 
+COLLBOX collision_array[SCREEN_W / 100][SCREEN_H / 100];
 
 NODEP init_node()
 {
@@ -23,51 +16,49 @@ NODEP init_node()
 
 //========================================
 
+void safe_newBlastEffect(PROJP source) {
+	PROJP blastEffect = (PROJP)new_pool_item(blast_pool);
+	if (blastEffect) {
+		blastEffect->health = 34;
+		blastEffect->posX = source->posX - 13.5;
+		blastEffect->posY = source->posY - 13.5;
+		blastEffect->velX = source->velX * 0.6;
+		blastEffect->velY = source->velY * 0.6;
+	}
+}
+
 void ship_aster_coll(PROJP ship, PROJP asteroid)
 {
-	PROJP blastEffect = (PROJP)new_pool_item(blast_pool);
 	asteroid->health--;
 	ship->health -= 6;
-	blastEffect->health = 34;
-	blastEffect->posX = asteroid->posX - 13.5;
-	blastEffect->posY = asteroid->posY - 13.5;
-	blastEffect->velX = asteroid->velX * 0.6;
-	blastEffect->velY = asteroid->velY * 0.6;
+	safe_newBlastEffect(asteroid);
 }
 void ship_bolt_coll(PROJP ship, PROJP bolt)
 {
-	PROJP blastEffect = (PROJP)new_pool_item(blast_pool);
 	bolt->health--;
 	ship->health -= 5;
-	blastEffect->health = 34;
-	blastEffect->posX = bolt->posX - 13.5;
-	blastEffect->posY = bolt->posY - 13.5;
-	blastEffect->velX = bolt->velX * 0.6;
-	blastEffect->velY = bolt->velY * 0.6;
+	safe_newBlastEffect(bolt);
 }
 void bolt_aster_coll(PROJP bolt, PROJP asteroid)
 {
-	PROJP blastEffect = (PROJP)new_pool_item(blast_pool);
 	//printf("An asteroid is hit by a bolt!\n");
 	//printf("%llx & %llx\n", (llui)bolt, (llui)asteroid);
 	bolt->health--;
 	asteroid->health--;
-	blastEffect->health = 34;
-	blastEffect->posX = asteroid->posX - 13.5;
-	blastEffect->posY = asteroid->posY - 13.5;
-	blastEffect->velX = asteroid->velX * 0.6;
-	blastEffect->velY = asteroid->velY * 0.6;
+	safe_newBlastEffect(asteroid);
 }
 void bolt_enemy_coll(PROJP bolt, PROJP enemy)
 {
-	PROJP blastEffect = (PROJP)new_pool_item(blast_pool);
 	bolt->health--;
 	enemy->health--;
-	blastEffect->health = 34;
-	blastEffect->posX = bolt->posX + 15;
-	blastEffect->posY = bolt->posY - 14;
-	blastEffect->velX = enemy->velX * 0.6;
-	blastEffect->velY = enemy->velY * 0.6;	
+	PROJP blastEffect = (PROJP)new_pool_item(blast_pool);
+	if (blastEffect) {
+		blastEffect->health = 34;
+		blastEffect->posX = bolt->posX + 15;
+		blastEffect->posY = bolt->posY - 14;
+		blastEffect->velX = enemy->velX * 0.6;
+		blastEffect->velY = enemy->velY * 0.6;
+	}
 }
 
 void handleCollision(PROJP proj1, PROJP proj2)
@@ -100,7 +91,7 @@ void setup_collision_architecture()
 //Clears the collision array's buckets.
 void clear_collboxes()
 {
-	for (i = 0; i < 8; i++) {
+	for (int i = 0; i < 8; i++) {
 		int j;
 		for (j = 0; j < 6; j++) {
 			COLLBOXP temp = &collision_array[i][j];
@@ -197,7 +188,7 @@ void check_in_proj(PROJP pp)
 void check_in_smartpool(SPP sp)
 {
 	//printf("Checking in a smartpool:\n");
-	for (i = 0 ; i < sp->liveIndex; i++) {
+	for (int i = 0 ; i < sp->liveIndex; i++) {
 		//Update the index so it can be killed via reference.
 		((PROJP)sp->pool[i])->index = i;
 		check_in_proj(sp->pool[i]);
@@ -270,7 +261,7 @@ void find_collbox_collisions(COLLBOXP cbp)
 
 void do_collision()
 {
-	for (i = 0; i < SCREEN_W / 100; i++) {
+	for (int i = 0; i < SCREEN_W / 100; i++) {
 		int j;
 		for (j = 0; j < SCREEN_H / 100; j++) {
 			//printf("Checking collision for box [%i][%i].\n", i, j);

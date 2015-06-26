@@ -1,23 +1,19 @@
-#pragma once
+//#pragma once
 
 //C stuff.
-#include <stdio.h>
-#include <stdlib.h>
 #ifdef _WIN32
 	#include <time.h>
 #else
 	#include <sys/time.h>
 #endif
 //Allegro stuff.
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
-//My stuff.
-#ifndef GUARDCHECK
-	#include "definitions.h"
-#endif
-#include "struct_pool.c"
-#include "proj.c"
-#include "collision.c"
+#include <allegro5/allegro_primitives.h>
+#include "definitions.h"
+#include "struct_pool.h"
+#include "proj.h"
+#include "collision.h"
+#include "game_entities.h"
+#include "game_pools.h"
 
 //Initializing random number generator.
 void init_random()
@@ -26,7 +22,7 @@ void init_random()
 	//gettimeofday(&tv, NULL);
 	//Seeding with microseconds.
 	//You can re-seed rapidly without getting the same results.
-	srand(time(NULL));
+	srand((int)time(NULL));
 }
 	
 //Initializing a bunch of allegro modules.
@@ -67,6 +63,11 @@ int init_stuff()
 		return -1;
 	}
 
+	if(!al_init_primitives_addon()) {
+		fprintf(stderr, "Failed to initialize al_init_primitives_addon!\n");
+		return -1;
+	}
+
 	ship = init_proj();
 	ship->kind = SHIP;
 	ship->health = 100;
@@ -76,7 +77,7 @@ int init_stuff()
 	ship->sizeY = 7;
 	//Setup the ship's laser pool.
 	sl_pool = init_smartItemPool(PROJ_POOL_SIZE, (void *(*)())&init_proj);
-	for (i = 0; i < sl_pool->poolsize; i++) {
+	for (int i = 0; i < sl_pool->poolsize; i++) {
 		PROJP tmp = (PROJP)sl_pool->pool[i];
 		tmp->kind = BOLT;
 		tmp->sizeX = 50;
@@ -85,7 +86,7 @@ int init_stuff()
 
 	//Setup some asteroids for test purposes.
 	ast_pool = init_smartItemPool(AST_POOL_SIZE, (void *(*)())&init_proj);
-	for (i = 0; i < ast_pool->poolsize; i++) {
+	for (int i = 0; i < ast_pool->poolsize; i++) {
 		PROJP tmp = (PROJP)ast_pool->pool[i];
 		tmp->kind = ASTEROID;
 		tmp->offsetX = 6;
@@ -96,7 +97,7 @@ int init_stuff()
 
 	//Setup the pool of "particle" effects.
 	blast_pool = init_smartItemPool(PROJ_POOL_SIZE, (void *(*)())&init_proj);
-	for (i = 0; i < blast_pool->poolsize; i++) {
+	for (int i = 0; i < blast_pool->poolsize; i++) {
 		PROJP tmp = (PROJP)blast_pool->pool[i];
 		tmp->kind = BLAST;
 		tmp->health = 36;
@@ -105,7 +106,7 @@ int init_stuff()
 
 	//Setup the enemy pool.
 	enemy_pool = init_smartItemPool(ENEMY_POOL_SIZE, (void *(*)())&init_proj);
-	for (i = 0; i < enemy_pool->poolsize; i++) {
+	for (int i = 0; i < enemy_pool->poolsize; i++) {
 		PROJP tmp = (PROJP)enemy_pool->pool[i];
 		tmp->kind = ENEMY;
 		tmp->health = 5;
@@ -117,7 +118,7 @@ int init_stuff()
 
 	//Setup the enemy bolt pool.
 	enemy_bolt_pool = init_smartItemPool(ENEMY_BOLT_POOL_SIZE, (void *(*)())&init_proj);
-	for (i = 0; i < enemy_bolt_pool->poolsize; i++) {
+	for (int i = 0; i < enemy_bolt_pool->poolsize; i++) {
 		PROJP tmp = (PROJP)enemy_bolt_pool->pool[i];
 		tmp->kind = ENEMYBOLT;
 		tmp->offsetX = 5;

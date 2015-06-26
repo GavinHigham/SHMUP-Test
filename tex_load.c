@@ -1,15 +1,10 @@
-#pragma once
-
 //C stuff.
 #include <stdio.h>
-#include <stdlib.h>
 //Allegro stuff.
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 //My stuff.
-#ifndef GUARDCHECK
-	#include "definitions.h"
-#endif
+#include "definitions.h"
 
 int load_textures()
 {
@@ -33,7 +28,7 @@ int load_textures()
 	enemy_bolt_sprite = al_load_bitmap("EnemyBolt/EnemyBolt.png");
 
 	//Loading in the bolt frames.
-	for (i = 0; i < 12; i++) {
+	for (int i = 0; i < 12; i++) {
 		char path[] = "Bolt/bolt0000.png\0";
 		boltFrames[i] = NULL;
 		path[11] = i/10 + '0';
@@ -42,7 +37,7 @@ int load_textures()
 	}
 
 	//Loading in the asteroid frames.
-	for (i = 0; i < 60; i++) {
+	for (int i = 0; i < 60; i++) {
 		char path[] = "Aster4/aster0000.png\0";
 		asteroidFrames[i] = NULL;
 		//printf("Loading %2i: ", i);
@@ -54,8 +49,11 @@ int load_textures()
 			printf("Asteroid %2i is not hardware-accelerated!\n", i);
 	}
 
+	asteroid = al_load_bitmap("Aster4/asteroid.png");
+	if (asteroid) printf("Successfully loaded asteroid!");
+
 	//Loading ship frames.
-	for (i = 0; i < 60; i++) {
+	for (int i = 0; i < 60; i++) {
 		char path[] = "Ship1/ship0000.png\0";
 		shipFrames[i] = NULL;
 		path[12] = i/10 + '0';
@@ -64,7 +62,7 @@ int load_textures()
 	}
 	//These are an alternate set with a different seed value for flares.
 	//That way the ship rockets never appear static.
-	for (i = 0; i < 60; i++) {
+	for (int i = 0; i < 60; i++) {
 		char path[] = "Ship2/ship0000.png\0";
 		shipFrames[i+60] = NULL;
 		path[12] = i/10 + '0';
@@ -73,7 +71,7 @@ int load_textures()
 	}
 	
 	//Loading in the explosion frames.
-	for (i = 0; i < 35; i++) {
+	for (int i = 0; i < 35; i++) {
 		char path[] = "smoke/smoke0000.png\0";
 		blastFrames[i] = NULL;
 		//printf("Loading %2i: ", i);

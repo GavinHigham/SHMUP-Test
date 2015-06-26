@@ -1,15 +1,5 @@
-#pragma once
-
-//C stuff.
-#include <stdio.h>
+#include "struct_pool.h"
 #include <stdlib.h>
-//Allegro stuff.
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
-//My stuff.
-#ifndef GUARDCHECK
-	#include "definitions.h"
-#endif
 
 //This is my implementation for what I call a "struct pool", a way to initialize
 //and store a bunch of reused structs to avoid allocating memory when stuff is running.
@@ -51,9 +41,12 @@ void special_kill_item(SPP sp, PROJP pp) {
 //Revives a struct from the smartpool and gives it to you.
 void * new_pool_item(SPP sp)
 {
-	void *new = sp->pool[sp->liveIndex];
-	sp->liveIndex++;
-	return new;
+	if (sp->poolsize > sp->liveIndex) {
+		void *new = sp->pool[sp->liveIndex];
+		sp->liveIndex++;
+		return new;
+	}
+	else return NULL;
 }
 
 //Updates all items in a pool. Takes a function pointer, which is the action to

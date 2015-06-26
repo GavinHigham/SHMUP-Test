@@ -1,11 +1,41 @@
 CC=cc
-CFLAGS= -Wall -Wextra -L/usr/local/lib -lallegro -lallegro_main -lallegro_image -lallegro_dialog -lallegro_primitives -ljansson
-
+CFLAGS=  -c -Wall -Wextra -I/usr/local/include
+LIBS= -L/usr/local/lib -lallegro -lallegro_main -lallegro_image -lallegro_dialog -lallegro_primitives
 SOURCES:=$(shell echo *.c)
 OBJECTS:=$(patsubst %.c,%.o,${SOURCES})
 TARGETS:=$(patsubst %.c,%,${SOURCES})
 
 all: main
+
+main: main.o collision.o definitions.o game_draw.o game_entities.o game_pools.o proj.o struct_pool.o trig.o
+	$(CC) $(LIBS) main.o collision.o definitions.o game_draw.o game_entities.o game_pools.o proj.o struct_pool.o trig.o -o main
+
+main.o: main.c
+	$(CC) $(CFLAGS) main.c
+
+collision.o: collision.c
+	$(CC) $(CFLAGS) collision.c
+
+definitions.o: definitions.c
+	$(CC) $(CFLAGS) definitions.c
+
+game_draw.o: game_draw.c
+	$(CC) $(CFLAGS) game_draw.c
+
+game_entities.o: game_entities.c
+	$(CC) $(CFLAGS) game_entities.c
+
+game_pools.o: game_pools.c
+	$(CC) $(CFLAGS) game_pools.c
+
+proj.o: proj.c
+	$(CC) $(CFLAGS) proj.c
+
+struct_pool.o: struct_pool.c
+	$(CC) $(CFLAGS) struct_pool.c
+
+trig.o: trig.c
+	$(CC) $(CFLAGS) trig.c
 
 clean:
 	rm -f -R $(OBJECTS) $(TARGETS) *.dSYM

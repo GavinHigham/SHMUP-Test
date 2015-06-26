@@ -1,17 +1,10 @@
-#pragma once
-
-//C stuff.
-#include <stdio.h>
-#include <stdlib.h>
-//Allegro stuff.
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
-//My stuff.
-#ifndef GUARDCHECK
-	#include "definitions.h"
-#endif
-#include "proj.c"
+#include "definitions.h"
+#include "proj.h"
+#include "collision.h"
+#include "game_entities.h"
+#include "game_pools.h"
 #include <math.h>
+//int logicTick = 0;
 
 void aimEnemyShot(PROJP ship, PROJP enemyShot) {
 	float velocity = 5;
@@ -26,10 +19,12 @@ void shipExplosion(PROJP ship, PROJP explosion) {
 	float xOffset = 20;
 	float yOffset = 15;
 	explosion = (PROJP)new_pool_item(blast_pool);
-	explosion->posX = ship->posX + xOffset + (rand() % 55);
-	explosion->posY = ship->posY + yOffset + (rand() % 14);
-	explosion->velX = ship->velX * 0.6;
-	explosion->velY = ship->velY * 0.6;
+	if (explosion) {
+		explosion->posX = ship->posX + xOffset + (rand() % 55);
+		explosion->posY = ship->posY + yOffset + (rand() % 14);
+		explosion->velX = ship->velX * 0.6;
+		explosion->velY = ship->velY * 0.6;
+	}
 }
 
 void logic_tick()
@@ -114,7 +109,7 @@ void logic_tick()
 	update_pool(sl_pool, &proj_update);
 
 	//Creation and swapping of laser projectiles.
-	if (key[KEY_SPACE] && ship_cooldown <= 0 && sl_pool->liveIndex < sl_pool->poolsize) {
+	if (key[KEY_SPACE] && ship_cooldown <= 0 && sl_pool->liveIndex+1 < sl_pool->poolsize) {
 		PROJP tmp_new = (PROJP)new_pool_item(sl_pool);
 		tmp_new->health = 1;
 		tmp_new->posX = ship->posX + SHOT_OFFSET_X;
@@ -132,9 +127,9 @@ void logic_tick()
 	//Update the asteroid positions.
 	update_pool(ast_pool, &proj_update);
 	
-	for (i = 0; i < 10; i++) {
+	for (int i = 0; i < 6; i++) {
 		//Creation and swapping of asteroids.
-		if (ast_cooldown <= 0 && ast_pool->liveIndex < ast_pool->poolsize) {
+		if (ast_cooldown <= 0 && ast_pool->liveIndex+1 < ast_pool->poolsize) {
 			PROJP tmp_new = (PROJP)new_pool_item(ast_pool);
 			tmp_new->health = 1;
 			tmp_new->posX = SCREEN_W + MARGIN;
@@ -148,9 +143,9 @@ void logic_tick()
 
 	update_pool(enemy_pool, &proj_update);
 
-	for (i = 0; i < 10; i++) {
+	for (int i = 0; i < 10; i++) {
 		//Creation and swapping of enemies.
-		if (enemy_cooldown <= 0 && enemy_pool->liveIndex < enemy_pool->poolsize) {
+		if (enemy_cooldown <= 0 && enemy_pool->liveIndex+1 < enemy_pool->poolsize) {
 			PROJP tmp_new = (PROJP)new_pool_item(enemy_pool);
 			tmp_new->health = 5;
 			tmp_new->posX = SCREEN_W + MARGIN;
@@ -162,21 +157,23 @@ void logic_tick()
 
 	update_pool(enemy_bolt_pool, &proj_update);
 
-	for (i = 0; i < 2; i++) {
-		PROJP aggressor = enemy_pool->pool[rand() % (enemy_pool->liveIndex + 1)];
-		//Creation and swapping of enemy bolts.
-		if (!proj_offscreen(aggressor, SCREEN_W, SCREEN_H, -10) && enemy_bolt_cooldown <= 0 && enemy_bolt_pool->liveIndex < enemy_bolt_pool->poolsize) {
-			PROJP tmp_new = (PROJP)new_pool_item(enemy_bolt_pool);
-			tmp_new->health = 1;
-			tmp_new->posX = aggressor->posX + 15;
-			tmp_new->posY = aggressor->posY + 50;
-			aimEnemyShot(ship, tmp_new);
-			if (enemy_bolt_cooldown <= 0) enemy_bolt_cooldown = ENEMY_BOLT_COOLDOWN_MAX;
+	for (int i = 0; i < 2; i++) {
+		if (enemy_pool->liveIndex > 0) {
+			PROJP aggressor = enemy_pool->pool[rand() % (enemy_pool->liveIndex)];
+			//Creation and swapping of enemy bolts.
+			if (!proj_offscreen(aggressor, SCREEN_W, SCREEN_H, -10) && enemy_bolt_cooldown <= 0 && enemy_bolt_pool->liveIndex < enemy_bolt_pool->poolsize) {
+				PROJP tmp_new = (PROJP)new_pool_item(enemy_bolt_pool);
+				tmp_new->health = 1;
+				tmp_new->posX = aggressor->posX + 15;
+				tmp_new->posY = aggressor->posY + 50;
+				aimEnemyShot(ship, tmp_new);
+				if (enemy_bolt_cooldown <= 0) enemy_bolt_cooldown = ENEMY_BOLT_COOLDOWN_MAX;
+			}
 		}
 	}
 
 	update_pool(blast_pool, &proj_update);
-	for (i = 0; i < blast_pool->liveIndex; i++) {
+	for (int i = 0; i < blast_pool->liveIndex; i++) {
 		if (((PROJP)blast_pool->pool[i])->health > 0) ((PROJP)blast_pool->pool[i])->health--;
 	}
 	
@@ -184,7 +181,6 @@ void logic_tick()
 	//printf("It broke after clearing.\n");
 	//printf("Checking in the ship:\n");
 	check_in_proj(ship);
-	//printf("\n");
 	//printf("It broke after ship check-in\n");
 	check_in_smartpool(sl_pool);
 	check_in_smartpool(ast_pool);
