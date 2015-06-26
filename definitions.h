@@ -11,14 +11,14 @@
 #define AST_POOL_SIZE 2000
 extern int MARGIN;
 extern int FPS;
-const extern int PROJ_POOL_SIZE;
-const extern int ENEMY_POOL_SIZE;
-const extern int ENEMY_BOLT_POOL_SIZE;
-const extern int SHOT_COOLDOWN_MAX;
-const extern int AST_COOLDOWN_MAX;
-const extern int REGEN_COOLDOWN_MAX;
-const extern int ENEMY_COOLDOWN_MAX;
-const extern int ENEMY_BOLT_COOLDOWN_MAX;
+extern const int PROJ_POOL_SIZE;
+extern const int ENEMY_POOL_SIZE;
+extern const int ENEMY_BOLT_POOL_SIZE;
+extern const int SHOT_COOLDOWN_MAX;
+extern const int AST_COOLDOWN_MAX;
+extern const int REGEN_COOLDOWN_MAX;
+extern const int ENEMY_COOLDOWN_MAX;
+extern const int ENEMY_BOLT_COOLDOWN_MAX;
 extern int SHOT_SPREAD;
 extern int SHOT_OFFSET_X;
 extern int SHOT_OFFSET_Y;
