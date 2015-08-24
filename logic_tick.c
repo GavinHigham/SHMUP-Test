@@ -1,5 +1,5 @@
-#include "definitions.h"
 #include "logic_tick.h"
+#include "definitions.h"
 #include "proj.h"
 #include "collision.h"
 #include "game_entities.h"

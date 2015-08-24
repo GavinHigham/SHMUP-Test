@@ -15,20 +15,19 @@
 #include "proj.h"
 #include "struct_pool.h"
 #include "init.c"
-#include "tex_load.c"
+#include "tex_load.h"
 #include "logic_tick.h"
 #include "key_handling.c"
 #include "trig.h"
 #include "game_draw.h"
-//#include <unistd.h>
-//#include <string.h>
-//#include <sys/types.h>
-//#include <sys/socket.h>
-//#include <netinet/in.h>
-//#include <netdb.h> 
+#include <unistd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h> 
 //#include <jansson.h>
 //#include "parson/parson.c"
-
 /*
 void error(const char *msg)
 {
@@ -122,11 +121,11 @@ void * parse_the_junk(ALLEGRO_THREAD *le_thread, void *data)
 int main()
 {
     int i;
-    /*
-	ALLEGRO_THREAD *other_thread = NULL;
-	other_thread = al_create_thread(parse_the_junk, &c);
-	al_start_thread(other_thread);
-    */
+    
+	//ALLEGRO_THREAD *other_thread = NULL;
+	//other_thread = al_create_thread(parse_the_junk, NULL);
+	//al_start_thread(other_thread);
+    
 
 	//Initializing a bunch of modules.
 	if (init_stuff()) return -1;

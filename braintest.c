@@ -7,7 +7,6 @@
 #include <netinet/in.h>
 #include <netdb.h> 
 #include <jansson.h>
-#include "parson/parson.c"
 
 void error(const char *msg)
 {
@@ -18,7 +17,7 @@ void error(const char *msg)
 int main()
 {
     //Setup json objects
-    json_error_t *errors;
+    json_error_t *errors = 0;
     json_t *auth      = json_object();
     json_t *cfg       = json_object();
     json_t *braindata = json_object();
@@ -29,8 +28,7 @@ int main()
 
     FILE *fp;
     char buffer[256];
-    int sockfd, portno, n, socket_size;
-    unsigned int m = sizeof(socket_size);
+    int sockfd, portno, n;
     struct sockaddr_in serv_addr;
     struct hostent *server;
     portno = 13854;

@@ -6,6 +6,7 @@
 #include <allegro5/allegro_image.h>
 //My stuff.
 #include "definitions.h"
+#include "tex_load.h"
 
 int load_textures()
 {
@@ -32,7 +33,6 @@ int load_textures()
 	for (int i = 0; i < 12; i++) {
 		char path[] = "Bolt/bolt0000.png\0";
 		sprintf((char *)&path, "Bolt/bolt%04i.png", i);
-		printf("%s\n", path);
 		boltFrames[i] = al_load_bitmap(path);
 	}
 
