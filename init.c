@@ -70,7 +70,7 @@ int init_stuff()
 
 	ship = init_proj();
 	ship->kind = SHIP;
-	ship->health = 100;
+	ship->health = SHIP_HEALTH_MAX;
 	ship->offsetX = 26;
 	ship->offsetY = 22;
 	ship->sizeX = 45;

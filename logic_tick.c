@@ -36,15 +36,15 @@ void logic_tick()
 
 	if (regen > 0) regen --;
 
-	//timescale = (100 - attention) / 100.0;
-	//if (timescale < 0.01) timescale = 0.01;
+	timescale = (100 - attention) / 100.0;
+	if (timescale < 0.01) timescale = 0.01;
 
 	if (!regen) {
 		ship->health += (meditation / 50);
 		regen = REGEN_COOLDOWN_MAX;
 	}
 	if (ship->health < 0) {
-		ship->health = 100;
+		ship->health = SHIP_HEALTH_MAX;
 		explosion_countdown = 1500;
 		lost = true;
 	}

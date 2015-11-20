@@ -1,6 +1,13 @@
 //C stuff.
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h> 
+#include <jansson.h>
 #ifdef _WIN32
 	#include <time.h>
 #else
@@ -20,15 +27,9 @@
 #include "key_handling.c"
 #include "trig.h"
 #include "game_draw.h"
-#include <unistd.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h> 
-//#include <jansson.h>
-//#include "parson/parson.c"
-/*
+
+#define BUFLEN 256
+
 void error(const char *msg)
 {
     perror(msg);
@@ -43,13 +44,12 @@ void * parse_the_junk(ALLEGRO_THREAD *le_thread, void *data)
     json_t *cfg       = json_object();
     json_t *braindata = json_object();
     json_object_set(auth, "appName", json_string("TestFour"));
-    json_object_set(auth, "appKey", json_string("ffdab17b99842cd1ed538b2c08472e2b72a9d5c8"));
+    json_object_set(auth, "appKey", json_string("cad1aa3e1f6157363dd4b121d35ecdacb3a56fdf"));
     json_object_set(cfg, "enableRawOutput", json_false());
     json_object_set(cfg, "format", json_string("Json"));
 
-    char buffer[256];
-    int sockfd, portno, n, socket_size;
-    unsigned int m = sizeof(socket_size);
+    char buffer[BUFLEN];
+    int sockfd, portno, n;
     struct sockaddr_in serv_addr;
     struct hostent *server;
     portno = 13854;
@@ -58,7 +58,7 @@ void * parse_the_junk(ALLEGRO_THREAD *le_thread, void *data)
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) 
         error("ERROR opening socket");
-    server = gethostbyname("localhost");
+    server = gethostbyname("127.0.0.1");
     if (server == NULL) {
         fprintf(stderr,"ERROR, no such host\n");
         exit(0);
@@ -71,35 +71,40 @@ void * parse_the_junk(ALLEGRO_THREAD *le_thread, void *data)
     serv_addr.sin_port = htons(portno);
     if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0) 
         error("ERROR connecting");
+    close(sockfd);
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0) 
+        error("ERROR connecting");
     //Get the socket size.
     //getsockopt(fdsocket,SOL_SOCKET,SO_RCVBUF,(void *)&socket_size, &m);
 
     char  *cfg_string = json_dumps(cfg, 0);
     char *auth_string = json_dumps(auth, 0);
     //Authenticate!
+    printf("Attempting to authenticate with:\n%s\n", auth_string);
     n = write(sockfd, auth_string, strlen(auth_string));
     if (n < 0)
-         error("ERROR writing to socket");
-    sleep(2);
+        error("ERROR writing to socket");
     //Configure!
+    printf("Attempting to configure with:\n%s\n", cfg_string);
     n = write(sockfd, cfg_string, strlen(cfg_string));
-    if (n < 0) 
-         error("ERROR writing to socket");
+    if (n < 0)
+        error("ERROR writing to socket");
 
     printf("Advancing to first \\r.\n");
-    bzero(buffer, 256);
+    bzero(buffer, BUFLEN);
     do {
         read(sockfd,buffer,1);
         printf("%c", buffer[0]);
     } while (buffer[0] != '\r');
     printf("Beginning to parse complete packets.\n");
-    int i, k = 0;
-    while(!doexit)
+    int k = 0;
+    while (!doexit)
     {
-        bzero(buffer, 256);
-        while(read(sockfd,&buffer[k],1) && buffer[k] != '\r' && k < 256) {
-            k++;
+        bzero(buffer, BUFLEN);
+        while(read(sockfd,&buffer[k],1) && buffer[k] != '\r' && k < BUFLEN) {
             //printf("%c", buffer[k]);
+            k++;
         }
         braindata = json_loads(buffer, k, errors);
         json_t *eSense = json_object_get(braindata, "eSense");
@@ -107,31 +112,39 @@ void * parse_the_junk(ALLEGRO_THREAD *le_thread, void *data)
             int attention_tmp = (int)json_integer_value(json_object_get(eSense, "attention"));
             if (attention_tmp != 0) attention = attention_tmp;
             int meditation_tmp = (int)json_integer_value(json_object_get(eSense, "meditation"));
-            if (meditation_tmp != 0) meditation = meditation_tmp; 
-            printf("a: %i, m: %i\n", attention, meditation);
+            if (meditation_tmp != 0) meditation = meditation_tmp;
+            char *braindata_str = json_dumps(braindata, 0);
+            printf("Attention: %i, Meditation: %i\n", attention, meditation);
+            printf("\n%s\n\n", braindata_str);
+            free(braindata_str);
         }
+        k = 0;
     }
     close(sockfd);
     free(cfg_string);
     free(auth_string);
     return NULL;
 }
-*/
+
+void * parse_the_junk_wrap(void *data)
+{
+    parse_the_junk(NULL, NULL);
+    return NULL;
+}
 
 int main()
 {
     int i;
-    
-	//ALLEGRO_THREAD *other_thread = NULL;
-	//other_thread = al_create_thread(parse_the_junk, NULL);
-	//al_start_thread(other_thread);
-    
+    ALLEGRO_THREAD *other_thread = NULL;
+    other_thread = al_create_thread(parse_the_junk, NULL);
+    al_start_thread(other_thread);
+    //parse_the_junk(other_thread, NULL);
 
-	//Initializing a bunch of modules.
-	if (init_stuff()) return -1;
+    //Initializing a bunch of modules.
+    if (init_stuff()) return -1;
 
-	//Loading in the textures.
-	if (load_textures()) return -1;
+    //Loading in the textures.
+    if (load_textures()) return -1;
 
 	//Setup the ship projectile.
 	ship->posX = SCREEN_W / 4;
@@ -166,7 +179,8 @@ int main()
 	}
 
 	//Destroy the other thread!
-	//al_destroy_thread(other_thread);
+    al_join_thread(other_thread, NULL);
+	al_destroy_thread(other_thread);
 	//Free all the things!
 	for (i = 0; i < 60; i++) al_destroy_bitmap(asteroidFrames[i]);
 	for (i = 0; i < 12; i++) al_destroy_bitmap(boltFrames[i]);

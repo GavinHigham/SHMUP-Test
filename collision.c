@@ -4,6 +4,9 @@
 #include "game_pools.h"
 #include "game_entities.h"
 
+#define ASTEROID_DAMAGE 2
+#define ENEMY_BOLT_DAMAGE 1
+
 COLLBOX collision_array[SCREEN_W / 100][SCREEN_H / 100];
 
 NODEP init_node()
@@ -30,13 +33,13 @@ void safe_newBlastEffect(PROJP source) {
 void ship_aster_coll(PROJP ship, PROJP asteroid)
 {
 	asteroid->health--;
-	ship->health -= 6;
+	ship->health -= ASTEROID_DAMAGE;
 	safe_newBlastEffect(asteroid);
 }
 void ship_bolt_coll(PROJP ship, PROJP bolt)
 {
 	bolt->health--;
-	ship->health -= 5;
+	ship->health -= ENEMY_BOLT_DAMAGE;
 	safe_newBlastEffect(bolt);
 }
 void bolt_aster_coll(PROJP bolt, PROJP asteroid)

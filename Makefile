@@ -1,7 +1,7 @@
-CC=clang
-CFLAGS=  -c -Wall -Wextra -std=c99 -I/usr/local/include
+CC=gcc
+CFLAGS=  -c -Wall -Wextra -std=c99 -I/usr/local/include -pthread
 LDFLAGS= -L/usr/local/lib
-LDLIBS= -lallegro -lallegro_main -lallegro_image -lallegro_dialog -lallegro_primitives
+LDLIBS= -lallegro -lallegro_main -lallegro_image -lallegro_dialog -lallegro_primitives -ljansson
 OBJECTS = main.o collision.o definitions.o game_draw.o game_entities.o game_pools.o logic_tick.o proj.o struct_pool.o tex_load.o trig.o
 EXE = main
 
